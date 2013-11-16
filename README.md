@@ -61,6 +61,8 @@ This application was created in collaboration with [The Four Teachers Project](h
 * [Matt Buck](http://github.com/techpeace)
 * [Karo Kohashigawa](http://github.com/kaorudev)
 * [Sonny Gonzales](http://github.com/sonnyg-atx)
+* [Clare Glinka](http://github.com/cglinka)
+* [Alex Levine](http://github.com/a17levine)
 
 ## License
 
