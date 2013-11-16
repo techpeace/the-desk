@@ -1,3 +1,6 @@
+require 'faker'
+require Rails.root.join('spec', 'support', 'blueprints')
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -17,3 +20,12 @@ user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => EN
 puts 'user: ' << user.name
 user.confirm!
 user.add_role :admin
+
+
+
+User.make!(5).each do |user|
+  Lesson.make(5, :public).each do |lesson|
+    lesson.user_id = user.id
+    lesson.save(validation: false)
+  end
+end
