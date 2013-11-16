@@ -17,4 +17,10 @@
 //= require fullcalendar.min
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+var ready;
+ready = function() {
+  $(document).foundation();
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
