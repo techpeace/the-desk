@@ -2,6 +2,10 @@ main {
   @include grid-row;
 }
 
+.flash {
+  margin-top: 20px;
+}
+
 // -----||---------------------------------
 //      || Rails-composer provided styles
 // =====||=================================
