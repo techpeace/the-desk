@@ -12,7 +12,7 @@ ul.delivery-dates
 
 =content_for :javascript do
   #templates
-    script.deliveryLink
+    script.delivery-link
       li
         | {{ date }}
 
@@ -33,9 +33,8 @@ ul.delivery-dates
             date: $("#delivery_date").val()
           }
           success: (data) ->
-            $(".delivery-dates").prepend(data.link);
+            deliveriesCollection.add(data)
             $("#delivery_date").val("")
-            console.log(data);
         }
 
         

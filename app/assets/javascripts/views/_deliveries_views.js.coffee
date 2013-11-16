@@ -8,8 +8,15 @@ window.DeliveriesView = Backbone.View.extend {
     }
     $(this.el).prepend(newDelivery.el)
 
+    newDelivery.render()
+
 }
 
 window.DeliveryView = Backbone.View.extend {
+  initialize: (options) ->
+    this.templateGen = _.getTemplate('delivery-link')
 
+  render: ->
+    newHtml = this.templateGen(this.model.toJSON())
+    $(this.el).html(newHtml)
 }

@@ -5,10 +5,9 @@ class DeliveriesController < ApplicationController
     if date
       @lesson = Lesson.find(params[:lesson_id])
       @delivery = @lesson.deliveries.create(date: date)
-      @deliveries = @lesson.deliveries.to_json
     end
 
-    render :json => {link: render_to_string("_delivery_link", layout: false)}
+    render :json => {date: @delivery.date.strftime("%a, %b %d, %Y ")}
   end
 
   def destroy
