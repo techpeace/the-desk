@@ -2,6 +2,9 @@ class Delivery < ActiveRecord::Base
   belongs_to :lesson
 
   def as_json(options={})
-    super(:only => [:date])
+    {
+      id: self.id,
+      date: self.date ? self.date.strftime("%a, %b %d, %Y ") : nil
+    }
   end
 end

@@ -1,5 +1,6 @@
 window.init = {
   deliveries: (deliveries, url) ->
+    console.log(url)
     window.deliveriesCollection = new DeliveryCollection [], {
       url: url
     }

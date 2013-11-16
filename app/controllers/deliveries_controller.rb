@@ -1,16 +1,17 @@
 class DeliveriesController < ApplicationController
   def create
-    date = Chronic.parse(params[:date])
+    date = Chronic.parse(params[:delivery][:date])
 
     if date
       @lesson = Lesson.find(params[:lesson_id])
       @delivery = @lesson.deliveries.create(date: date)
+      render :json => @delivery
     end
-
-    render :json => {date: @delivery.date.strftime("%a, %b %d, %Y ")}
   end
 
   def destroy
     Delivery.find(params[:id]).destroy
+
+    render nothing: true, status: 200
   end
 end

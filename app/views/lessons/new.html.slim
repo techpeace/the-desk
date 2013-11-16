@@ -12,9 +12,10 @@ ul.delivery-dates
 
 =content_for :javascript do
   #templates
-    script.delivery-link
+    script.delivery-link type= "text/templates"
       li
         | {{ date }}
+        a.destroy-link<> href= "#" Delete
 
 
   javascript:
@@ -30,7 +31,9 @@ ul.delivery-dates
           url: url,
           method: "POST",
           data: {
-            date: $("#delivery_date").val()
+            delivery: {
+              date: $("#delivery_date").val()
+            }
           }
           success: (data) ->
             deliveriesCollection.add(data)
