@@ -1,3 +1,11 @@
+main {
+  @include grid-row;
+}
+
+// -----||---------------------------------
+//      || Rails-composer provided styles
+// =====||=================================
+
 // override for the 'Home' navigation link
 .top-bar .name {
   font-size: 0.8125em;
@@ -16,9 +24,6 @@
   @extend .large-6;
   @extend .columns;
   @extend .text-center;
-}
-main {
-  @include large12-columns;
 }
 section {
   @extend .row;

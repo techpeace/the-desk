@@ -1,0 +1,11 @@
+#calendar {
+  table.fc-header {
+    border: none;
+  }
+
+  .fc-content .fc-view table.fc-border-separate {
+    tr:nth-of-type(even) {
+      background-color: $table-bg;
+    }
+  }
+}
