@@ -2,6 +2,16 @@ li.divider
 - if signed_in?
   li.has-dropdown
     a href='#'
+      i.fa.fa-file-text.fa-fw
+      | Lesson Plans
+    ul.dropdown
+      li
+        == link_to new_lesson_path do
+          i.fa.fa-plus-square.fa-fw
+          | New lesson plan
+
+  li.has-dropdown
+    a href='#'
       i.fa.fa-user.fa-fw
       = current_user.name
     ul.dropdown
