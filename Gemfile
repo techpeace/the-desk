@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'slim'
 gem 'thin'
 gem 'zurb-foundation'
+gem 'font-awesome-sass'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

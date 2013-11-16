@@ -19,7 +19,6 @@
 }
 main {
   @include large12-columns;
-  background-color: #eee;
 }
 section {
   @extend .row;

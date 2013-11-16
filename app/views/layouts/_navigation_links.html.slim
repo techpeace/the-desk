@@ -1,1 +1,16 @@
-// add navigation links to this file
+li.divider
+- if signed_in?
+  li.has-dropdown
+    a href='#'
+      i.fa.fa-user.fa-fw
+      = current_user.name
+    ul.dropdown
+      li
+        == link_to destroy_user_session_path, :method => :delete do
+          i.fa.fa-sign-out.fa-fw
+          | Sign out
+- else
+  li
+    == link_to new_user_session_path do
+      i.fa.fa-sign-in.fa-fw
+      | Sign in
