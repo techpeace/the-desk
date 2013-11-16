@@ -35,6 +35,9 @@ group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
 end
+group :production do
+  gem 'rails_12factor'
+end
 group :test do
   gem 'capybara'
   gem 'database_cleaner', '1.0.1'
