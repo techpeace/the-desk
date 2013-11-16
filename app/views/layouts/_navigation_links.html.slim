@@ -1,4 +1,3 @@
-li.divider
 - if signed_in?
   li.has-dropdown
     a href='#'
@@ -9,10 +8,11 @@ li.divider
         == link_to new_lesson_path do
           i.fa.fa-plus-square.fa-fw
           | New lesson plan
+      li
         == link_to calendar_lessons_path do
           i.fa.fa-calendar.fa-fw
           | Calendar
-
+  li.divider
   li.has-dropdown
     a href='#'
       i.fa.fa-user.fa-fw

@@ -1,11 +1,9 @@
-// navigation styled for Zurb Foundation 4
 nav.top-bar
   ul.title-area
     li.name
-      = link_to 'The Desk', root_path
+      h1= link_to 'The Desk', root_path
     li.toggle-topbar.menu-icon
       a href="#"
         span Menu
-  .top-bar-section
-    ul.right
-      = render 'layouts/navigation_links'
+  section.top-bar-section
+    ul.right= render 'layouts/navigation_links'
