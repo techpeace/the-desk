@@ -4,8 +4,5 @@ h1 Calendar
 
 - content_for :javascript do
   coffee:
-    ready = ->
+    $ ->
       $('#calendar').fullCalendar()
-
-    $(document).ready(ready)
-    $(document).on('page:load', ready)

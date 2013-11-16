@@ -12,15 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require foundation
 //= require fullcalendar.min
 //= require_tree .
 
-var ready;
-ready = function() {
-  $(document).foundation();
-};
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
+$(function(){ $(document).foundation(); });
