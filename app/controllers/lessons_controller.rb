@@ -3,6 +3,7 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = current_user.lessons.create draft: true
+    @delivery = @lesson.deliveries.build
   end
 
   def calendar

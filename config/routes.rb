@@ -8,6 +8,8 @@ TheDesk::Application.routes.draw do
     collection do
       get 'calendar'
     end
+
+    resources :deliveries, only: [:create]
   end
 
   devise_scope :user do
