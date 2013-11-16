@@ -8,4 +8,9 @@ class LessonsController < ApplicationController
   def calendar
     @lessons = current_user.lessons
   end
+
+  def show
+    @user = User.where(id: params[:user_id])
+    @lesson = @user.lessons.where(id: params[:id])
+  end
 end
