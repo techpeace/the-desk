@@ -1,6 +1,3 @@
-// import the CSS framework
-@import "foundation";
-
 // override for the 'Home' navigation link
 .top-bar .name {
   font-size: 0.8125em;
@@ -14,30 +11,30 @@
 @mixin large12-columns {
   @extend .large-12;
   @extend .columns;
-  }
+}
 @mixin large6-columns-centered {
   @extend .large-6;
   @extend .columns;
   @extend .text-center;
-  }
+}
 main {
   @include large12-columns;
   background-color: #eee;
-  }
+}
 section {
   @extend .row;
   margin-top: 20px;
-  }
+}
 .column {
   @include large6-columns-centered;
-  }
+}
 .form {
   @include grid-column(6);
-  }
+}
 .form-centered {
   @include large6-columns-centered;
-  }
+}
 .submit {
   @extend .button;
   @extend .radius;
-  }
+}
