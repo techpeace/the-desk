@@ -290,6 +290,7 @@ DEPENDENCIES
   inherited_resources
   jbuilder (~> 1.2)
   jquery-rails
+  machinist
   pg
   pry
   pry-rails
