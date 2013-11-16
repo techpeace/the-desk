@@ -1,7 +1,7 @@
 h1 New Lesson Plan
 h3 Delivery Dates
 
-.delivery-dates
+ul.delivery-dates
   -@lesson.deliveries.all.each do |date|
     = date.date.strftime("%a, %b %d, %Y") if date.date
 
@@ -26,7 +26,8 @@ h3 Delivery Dates
             date: $("#delivery_date").val()
           }
           success: (data) ->
-            $(".delivery-dates").prepend(data.date);
+            $("#delivery_date").val("")
+            $(".delivery-dates").prepend("<li>" + data.date + "</li>");
         }
 
         
