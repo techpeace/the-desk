@@ -9,7 +9,7 @@ TheDesk::Application.routes.draw do
       get 'calendar'
     end
 
-    resources :deliveries, only: [:create]
+    resources :deliveries, only: [:create, :destroy]
   end
 
   devise_scope :user do

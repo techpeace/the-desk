@@ -26,8 +26,9 @@ ul.delivery-dates
             date: $("#delivery_date").val()
           }
           success: (data) ->
+            $(".delivery-dates").prepend(data.link);
             $("#delivery_date").val("")
-            $(".delivery-dates").prepend("<li>" + data.date + "</li>");
+            console.log(data);
         }
 
         

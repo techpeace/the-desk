@@ -1,0 +1,3 @@
+li
+  =@delivery.date.strftime("%a, %b %d, %Y ")
+  =link_to "delete", lesson_delivery_path(@lesson, @delivery), :method => :delete, remote: true
