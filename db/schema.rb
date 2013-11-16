@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20131116072545) do
 
   create_table "lessons", force: true do |t|
     t.text     "body"
+    t.boolean  "draft",      default: true
     t.integer  "user_id"
     t.string   "title"
     t.datetime "created_at"
