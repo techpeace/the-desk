@@ -1,5 +1,32 @@
 h1 New Lesson Plan
+h3 Delivery Dates
 
-= simple_form_for [@lesson, @delivery], remote: true do |f|
+.delivery-dates
+  -@lesson.deliveries.all.each do |date|
+    = date.date.strftime("%a, %b %d, %Y") if date.date
+
+
+= simple_form_for [@lesson, @delivery], :html => {id: "delivery-form"} do |f|
   =f.input :date, :as => :string
   =f.submit
+
+=content_for :javascript do
+  javascript:
+    var url = "#{lesson_deliveries_path @lesson}"
+
+  coffee:
+    $ ->
+      $("#delivery-form").on "submit", (e) ->
+        e.preventDefault()
+
+        $.ajax {
+          url: url,
+          method: "POST",
+          data: {
+            date: $("#delivery_date").val()
+          }
+          success: (data) ->
+            $(".delivery-dates").prepend(data.date);
+        }
+
+        

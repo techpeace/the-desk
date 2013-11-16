@@ -1,18 +1,10 @@
 class DeliveriesController < ApplicationController
   def create
-    date = Chronic.parse(params[:delivery][:date])
+    date = Chronic.parse(params[:date])
 
     if date
-      delivery = Lesson.find(params[:lesson_id]).deliveries.create(delivery_params)
-      render :json => delivery.date
-    else
-      render :json => {}
+      @delivery = Lesson.find(params[:lesson_id]).deliveries.create(date: date)
     end
-  end
-
-  private
-
-  def delivery_params
-    params.required(:delivery).permit(:date)
+    render :json => {date: @delivery.date.strftime("%a, %b %d, %Y")}
   end
 end
