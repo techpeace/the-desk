@@ -7,7 +7,7 @@ This application requires:
 * Ruby version 2.0.0
 * Rails version 4.0.1
 
-Learn more about "Installing Rails":http://railsapps.github.io/installing-rails.html.
+[Learn more about installing Rails.](http://railsapps.github.io/installing-rails.html)
 
 ### Database
 
