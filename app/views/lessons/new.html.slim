@@ -11,8 +11,15 @@ ul.delivery-dates
   =f.submit
 
 =content_for :javascript do
+  #templates
+    script.deliveryLink
+      li
+        | {{ date }}
+
+
   javascript:
     var url = "#{lesson_deliveries_path @lesson}"
+    init.deliveries(#{raw @deliveries}, url)
 
   coffee:
     $ ->

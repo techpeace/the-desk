@@ -15,6 +15,9 @@
 //= require underscore
 //= require backbone
 //= require foundation
+//= require_tree ./models_collections
+//= require_tree ./views
+//= require initializers
 //= require fullcalendar.min
 //= require_tree .
 
