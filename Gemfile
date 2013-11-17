@@ -19,6 +19,7 @@ gem 'thin'
 gem 'zurb-foundation'
 gem 'font-awesome-sass'
 gem 'active_interaction', '~> 0.8.0'
+gem 'chronic'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
@@ -30,6 +31,7 @@ group :development do
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
+  gem 'pry'
 end
 group :development, :test do
   gem 'fabrication'
