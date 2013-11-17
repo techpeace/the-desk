@@ -15,6 +15,10 @@ TheDesk::Application.routes.draw do
     resources :deliveries, only: [:create, :destroy]
   end
 
+  resources :lessons, only: [:show] do
+    resources :comments, only: [:index]
+  end
+
   devise_scope :user do
     root :to => 'devise/sessions#new'
   end

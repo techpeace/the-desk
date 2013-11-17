@@ -1,6 +1,12 @@
 %h1 Lesson Comments
-%h2= @lesson.title
+%h3= @lesson.title
+%h4= @lesson_type
+
+%hr
 
 - @comments.each do |comment|
-  %p= comment.user.name
-  %p= comment.message
+  = render partial: 'comment', locals: { comment: comment }
+
+/ - if @lesson.is_public
+/   = simple_form_for [@lesson, @comment] do |f|
+/     f.input :message

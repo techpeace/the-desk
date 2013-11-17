@@ -35,6 +35,9 @@ class LessonsController < ApplicationController
     @lessons = current_user.lessons
   end
 
+  def show
+    @user = User.find(params[:user_id])
+    @lesson = @user.lessons.find(params[:id])
   private
 
   def lesson_params
