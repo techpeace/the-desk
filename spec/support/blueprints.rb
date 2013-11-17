@@ -18,6 +18,12 @@ Lesson.blueprint(:public) do
   is_public { true }
 end
 
+Lesson.blueprint(:public_private_mix) do
+  # generate a public lesson 70% of the time
+  # generate a private lesson 30% of the time
+  is_public { rand(100) > 30 ? true : false }
+end
+
 User.blueprint do
   email           { Faker::Internet.email }
   password        { "test1234" }

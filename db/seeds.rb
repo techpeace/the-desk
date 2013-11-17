@@ -24,7 +24,7 @@ user.add_role :admin
 
 
 User.make!(5).each do |user|
-  Lesson.make(5, :public).each do |lesson|
+  Lesson.make(10, :public_private_mix).each do |lesson|
     lesson.user_id = user.id
     lesson.save(validation: false)
   end
