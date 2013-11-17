@@ -16,7 +16,7 @@ TheDesk::Application.routes.draw do
   end
 
   resources :lessons, only: [:show] do
-    resources :comments, only: [:index]
+    resources :comments, only: [:index, :create]
   end
 
   devise_scope :user do
