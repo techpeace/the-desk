@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/galetahub/ckeditor.git
+  revision: 6ac7f1eb21cbf439fabeccc63ea804fd8589d68a
+  specs:
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -237,6 +245,7 @@ DEPENDENCIES
   cancan
   capybara
   chronic
+  ckeditor!
   coffee-rails (~> 4.0.0)
   compass-rails (~> 2.0.alpha.0)
   database_cleaner (= 1.0.1)

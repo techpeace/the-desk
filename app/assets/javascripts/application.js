@@ -15,11 +15,13 @@
 //= require underscore
 //= require backbone
 //= require foundation
+//= require ckeditor/override
+//= require ckeditor/init
+//= require ckeditor/config
+//= require fullcalendar.min
 //= require util
 //= require_tree ./models_collections
 //= require_tree ./views
 //= require initializers
-//= require fullcalendar.min
-
 
 $(function(){ $(document).foundation(); });

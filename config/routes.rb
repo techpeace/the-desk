@@ -4,7 +4,7 @@ TheDesk::Application.routes.draw do
     resources :lessons, only: [:show]
   end
 
-  resources :lessons, only: [:new] do
+  resources :lessons, only: [:show, :new, :create, :update] do
     collection do
       get 'calendar'
     end

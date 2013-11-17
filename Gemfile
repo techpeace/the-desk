@@ -19,6 +19,7 @@ gem 'thin'
 gem 'zurb-foundation'
 gem 'font-awesome-sass'
 gem 'active_interaction', '~> 0.8.0'
+gem 'ckeditor', :git => 'https://github.com/galetahub/ckeditor.git'
 gem 'chronic'
 group :development do
   gem 'better_errors'
@@ -33,13 +34,16 @@ group :development do
   gem 'rb-inotify', :require=>false
   gem 'pry'
 end
+
 group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
 end
+
 group :production do
   gem 'rails_12factor'
 end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner', '1.0.1'
