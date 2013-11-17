@@ -1,8 +1,11 @@
 TheDesk::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users do
-    resources :lessons, only: [:show]
     get "/calendar" => "calendars#show", :as => :calendar
+
+    resources :lessons, only: [:show] do
+      resources :ratings, only: [:update]
+    end
   end
 
   resources :courses, only: [:new, :create, :show, :index]

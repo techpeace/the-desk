@@ -19,6 +19,7 @@
 //= require ckeditor/init
 //= require ckeditor/config
 //= require fullcalendar.min
+//= require jquery.raty.min.js
 //= require moment
 //= require util
 //= require_tree ./models_collections

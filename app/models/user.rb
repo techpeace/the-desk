@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :courses
   has_many :deliveries, :through => :lessons
+  has_many :ratings
 end

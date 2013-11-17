@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(version: 20140113060320) do
 
   add_index "lessons", ["user_id"], name: "index_lessons_on_user_id", using: :btree
 
+  create_table "ratings", force: true do |t|
+    t.integer  "lessons_id"
+    t.integer  "user_id"
+    t.integer  "score",      default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ratings", ["lessons_id"], name: "index_ratings_on_lessons_id", using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"

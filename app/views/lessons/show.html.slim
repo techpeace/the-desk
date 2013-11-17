@@ -3,6 +3,12 @@
 
   .body== @lesson.body
 
+  p Average rating
+    div#star
+
+  p Your rating
+    div#user_star
+
   - @lesson.comments.each do |comment|
     = render partial: 'comment', locals: { comment: comment }
 
