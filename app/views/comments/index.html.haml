@@ -1,0 +1,6 @@
+%h1 Lesson Comments
+%h2= @lesson.title
+
+- @comments.each do |comment|
+  %p= comment.user.name
+  %p= comment.message
