@@ -24,11 +24,10 @@ h3.with-icon
 =content_for :javascript do
   #templates
     script.delivery-link type= "text/templates"
-      li
-        span.date
-          | {{ date }}
-        a.destroy-link href = "#" title = "Remove from schedule"
-          i.fa.fa-minus-circle
+      span.date
+        | {{ date }}
+      a.destroy-link href = "#" title = "Remove from schedule"
+        i.fa.fa-minus-circle
 
   javascript:
     var url = "#{lesson_deliveries_path @lesson}"
