@@ -2,10 +2,21 @@
 
 main {
   @include grid-row;
+  overflow: visible;
 }
 
 .flash {
   margin-top: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  &.with-icon {
+    i {
+      display: inline-block;
+      width: 1.5em;
+      margin-left: -1.5em;
+    }
+  }
 }
 
 // -----||---------------------------------

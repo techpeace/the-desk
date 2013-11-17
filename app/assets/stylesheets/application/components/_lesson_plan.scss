@@ -1,0 +1,10 @@
+ul.delivery-dates {
+  list-style: none;
+
+  li {
+    span.date {
+      display: inline-block;
+      width: 180px;
+    }
+  }
+}
