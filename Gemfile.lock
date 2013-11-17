@@ -116,14 +116,18 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
-    guard-rails (0.5.2)
-      guard (~> 2.0)
-    guard-rspec (4.2.10)
-      guard (~> 2.1)
-      rspec (>= 2.14, < 4.0)
-    has_scope (0.6.0.rc)
-      actionpack (>= 3.2, < 5)
-      activesupport (>= 3.2, < 5)
+    guard-rails (0.4.7)
+      guard (>= 0.2.2)
+    guard-rspec (4.0.4)
+      guard (>= 2.1.1)
+      rspec (~> 2.14)
+    haml (4.0.3)
+      tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     hike (1.2.3)
     i18n (0.6.9)
     inherited_resources (1.5.0)
@@ -287,7 +291,8 @@ DEPENDENCIES
   guard-bundler
   guard-rails
   guard-rspec
-  inherited_resources
+  haml-rails
+  hirb
   jbuilder (~> 1.2)
   jquery-rails
   machinist
