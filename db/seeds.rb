@@ -29,3 +29,16 @@ User.make!(5).each do |user|
     lesson.save(validation: false)
   end
 end
+
+Lesson.all.each do |lesson|
+  Comment.make(5).each do |comment|
+    comment.lesson_id = lesson.id
+    comment.user_id = (User.all.map &:id).sample
+    comment.save(validation: false)
+  end
+end
+
+
+
+
+

@@ -9,6 +9,10 @@ require 'machinist/active_record'
 #     body  { "Lorem ipsum..." }
 #   end
 
+Comment.blueprint do
+  message { Faker::Lorem.paragraph(5) }
+end
+
 Lesson.blueprint do
   body  { Faker::Lorem.paragraph(5) }
   title { Faker::Lorem.sentence.titleize }
