@@ -14,8 +14,7 @@ class Delivery < ActiveRecord::Base
   def as_json(options={})
     {
       id: self.id,
-      date: self.date ? self.date.strftime("%a, %b %d, %Y ") : nil,
-      start: self.date ? self.date.strftime("%a, %b %d, %Y ") : nil
+      date: self.date ? self.date.strftime("%a, %b %d, %Y ") : nil
     }
   end
 end
