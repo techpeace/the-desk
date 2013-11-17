@@ -1,1 +1,43 @@
 h1 New Lesson Plan
+h3 Delivery Dates
+
+ul.delivery-dates
+  -@lesson.deliveries.all.each do |date|
+    = date.date.strftime("%a, %b %d, %Y") if date.date
+
+
+= simple_form_for [@lesson, @delivery], :html => {id: "delivery-form"} do |f|
+  =f.input :date, :as => :string
+  =f.submit
+
+=content_for :javascript do
+  #templates
+    script.delivery-link type= "text/templates"
+      li
+        | {{ date }}
+        a.destroy-link<> href= "#" Delete
+
+
+  javascript:
+    var url = "#{lesson_deliveries_path @lesson}"
+    init.deliveries(#{raw @deliveries}, url)
+
+  coffee:
+    $ ->
+      $("#delivery-form").on "submit", (e) ->
+        e.preventDefault()
+
+        $.ajax {
+          url: url,
+          method: "POST",
+          data: {
+            delivery: {
+              date: $("#delivery_date").val()
+            }
+          }
+          success: (data) ->
+            deliveriesCollection.add(data)
+            $("#delivery_date").val("")
+        }
+
+        
