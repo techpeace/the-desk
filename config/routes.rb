@@ -2,6 +2,7 @@ TheDesk::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users do
     resources :lessons, only: [:show]
+    resources :calendars, only: [:index]
   end
 
   resources :lessons, only: [:show, :new, :create, :update] do

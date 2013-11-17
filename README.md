@@ -59,7 +59,7 @@ If you add functionality to this application, create an alternative implementati
 This application was created in collaboration with [The Four Teachers Project](http://fourteachersproject.org/) to better the lives of Texas educators. The code was written by these fine folks:
 
 * [Matt Buck](http://github.com/techpeace)
-* [Karo Kohashigawa](http://github.com/kaorudev)
+* [Kaoru Kohashigawa](http://github.com/kaorudev)
 * [Sonny Gonzales](http://github.com/sonnyg-atx)
 * [Clare Glinka](http://github.com/cglinka)
 * [Alex Levine](http://github.com/a17levine)

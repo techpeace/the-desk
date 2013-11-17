@@ -3,6 +3,6 @@ h1 Calendar
 #calendar
 
 - content_for :javascript do
-  coffee:
-    $ ->
-      $('#calendar').fullCalendar()
+
+  javascript:
+    init.calendar(#{raw current_user.id})
