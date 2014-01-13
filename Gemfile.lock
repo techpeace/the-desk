@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/Compass/compass-rails.git
+  revision: 2fbc4a601d52622f698100bf45e41572fbb9fe3e
+  branch: 2-0-stable
+  specs:
+    compass-rails (2.0.0.pre)
+      compass (>= 0.12.2)
+
+GIT
   remote: https://github.com/galetahub/ckeditor.git
   revision: 6ac7f1eb21cbf439fabeccc63ea804fd8589d68a
   specs:
@@ -68,8 +76,6 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    compass-rails (2.0.alpha.0)
-      compass (>= 0.12.2, < 0.14)
     daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
@@ -247,7 +253,7 @@ DEPENDENCIES
   chronic
   ckeditor!
   coffee-rails (~> 4.0.0)
-  compass-rails (~> 2.0.alpha.0)
+  compass-rails!
   database_cleaner (= 1.0.1)
   devise
   email_spec
