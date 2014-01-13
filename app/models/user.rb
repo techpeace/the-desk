@@ -6,5 +6,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :lessons
+  has_many :courses
   has_many :deliveries, :through => :lessons
 end

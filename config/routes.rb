@@ -5,6 +5,8 @@ TheDesk::Application.routes.draw do
     resources :calendars, only: [:index]
   end
 
+  resources :courses, only: [:new, :create, :show, :index]
+
   resources :lessons, only: [:show, :new, :create, :update] do
     collection do
       get 'calendar'

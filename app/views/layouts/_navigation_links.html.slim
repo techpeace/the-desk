@@ -1,6 +1,21 @@
 - if signed_in?
   li.has-dropdown
     a href='#'
+      i.fa.fa-book.fa-fw
+      | Courses
+    ul.dropdown
+      li
+        == link_to new_course_path do
+          i.fa.fa-plus-square.fa-fw
+          | New course
+      li.divider
+      li
+        label My courses
+      - current_user.courses.reject(&:new_record?).each do |course|
+        li== link_to course.title, course
+      li== link_to 'All my courses', courses_path
+  li.has-dropdown
+    a href='#'
       i.fa.fa-file-text.fa-fw
       | Lesson Plans
     ul.dropdown

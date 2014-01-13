@@ -21,6 +21,8 @@ gem 'font-awesome-sass'
 gem 'active_interaction', '~> 0.8.0'
 gem 'ckeditor', :git => 'https://github.com/galetahub/ckeditor.git'
 gem 'chronic'
+gem 'inherited_resources'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

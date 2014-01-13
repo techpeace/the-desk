@@ -11,19 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131116215513) do
+ActiveRecord::Schema.define(version: 20140113060320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "courses", force: true do |t|
-    t.string   "name"
-    t.integer  "subject_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "title"
+    t.integer "user_id"
+    t.string  "grade"
+    t.integer "standard_course_id"
   end
-
-  add_index "courses", ["subject_id"], name: "index_courses_on_subject_id", using: :btree
 
   create_table "deliveries", force: true do |t|
     t.datetime "date"
@@ -42,6 +40,7 @@ ActiveRecord::Schema.define(version: 20131116215513) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "public",     default: false
+    t.integer  "course_id"
   end
 
   add_index "lessons", ["user_id"], name: "index_lessons_on_user_id", using: :btree
@@ -57,18 +56,27 @@ ActiveRecord::Schema.define(version: 20131116215513) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
+  create_table "standard_courses", force: true do |t|
+    t.string   "name"
+    t.integer  "subject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "standard_courses", ["subject_id"], name: "index_standard_courses_on_subject_id", using: :btree
+
   create_table "standards", force: true do |t|
     t.text     "text"
     t.string   "key"
     t.string   "grade"
     t.string   "keywords"
-    t.integer  "course_id"
+    t.integer  "standard_course_id"
     t.integer  "standards_issuer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "standards", ["course_id"], name: "index_standards_on_course_id", using: :btree
+  add_index "standards", ["standard_course_id"], name: "index_standards_on_standard_course_id", using: :btree
 
   create_table "standards_issuers", force: true do |t|
     t.string   "name"

@@ -1,0 +1,10 @@
+h1 Course: #{@course.title}
+
+p
+  strong Grade:
+  = @course.grade
+p
+  strong Standards set:
+  = @course.standard_course.name
+
+== link_to 'New lesson plan', new_lesson_path(course_id: @course), class: 'button'

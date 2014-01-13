@@ -1,0 +1,8 @@
+h1 New Course
+
+= simple_form_for @course do |f|
+  = f.input :title
+  = f.input :standard_course_id, label: 'Standards set', collection: @standard_courses, label_method: 'name'
+  = f.input :grade, collection: Course::GRADES
+
+  = f.button :submit
