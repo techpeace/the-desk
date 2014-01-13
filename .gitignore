@@ -76,3 +76,7 @@ pickle-email-*.html
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore ruby version and gemset config files
+.ruby-version
+.ruby-gemset
