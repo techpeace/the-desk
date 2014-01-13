@@ -5,8 +5,8 @@ html
     title= content_for?(:title) ? yield(:title) : 'The Desk'
     meta name="description" content="#{content_for?(:description) ? yield(:description) : 'The Desk'}"
     = stylesheet_link_tag "application", media: "all"
-    //  Modernizr is required for Zurb Foundation 4
-    = javascript_include_tag "vendor/custom.modernizr"
+    //  Modernizr is required for Zurb Foundation
+    = javascript_include_tag "vendor/modernizr"
     = csrf_meta_tags
   body
     header
