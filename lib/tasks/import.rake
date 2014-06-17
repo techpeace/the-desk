@@ -26,7 +26,7 @@ namespace :import do
         # find or create the subject, aka "Math" store that into a variable 'subject'
         subject = Subject.find_or_create_by(name: line[1])
         # find or create the course through the 'subject' variable, store that in 'course'
-        course = subject.courses.find_or_create_by(name: line[2])
+        course = subject.standard_courses.find_or_create_by(name: line[2])
         # find or create the standard through the course and store that in variable 'standard'
         #     also, we have to assign standards_issuer_id to 'standard' variable defined on line 24
         standard = course.standards.where(standards_issuer_id: standard_issuer, grade: line[0],
