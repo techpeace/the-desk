@@ -34,12 +34,14 @@ group :development do
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
-  gem 'pry'
+  gem 'pry-rails'
+  gem 'awesome_print'
 end
 
 group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
+  gem 'pry'
 end
 
 group :production do
