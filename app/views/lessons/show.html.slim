@@ -15,8 +15,8 @@
             = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false, input_html: { class: "with-select2" }
             | &nbsp;&nbsp;&nbsp;
             = f.button :submit, "Update Course", :class => "tiny button"
-      p <span id="star"></span>&nbsp;&nbsp;Average rating
-      p <span id="user_star"></span>&nbsp;&nbsp;Your rating
+      //p <span id="star"></span>&nbsp;&nbsp;Average rating
+      //p <span id="user_star"></span>&nbsp;&nbsp;Your rating
 
       .body== @lesson.body
 
@@ -51,23 +51,23 @@
 
 - content_for :javascript do
   javascript:
-    $('#star').raty({
-      readOnly: true,
-      score: #{ @lesson.average_rating },
-      path: '/assets'
-      });
-
-    $('#user_star').raty({
-      score: #{ @rating.score },
-      path: '/assets',
-      click: function(score, evt) {
-        $.ajax({
-          url: '#{lesson_rating_path(lesson_id: @lesson.id, id: @rating.id)}',
-          type: 'PATCH',
-          data: { score: score }
-        });
-      }
-    });
+//    $('#star').raty({
+//      readOnly: true,
+//      score: #{ @lesson.average_rating },
+//      path: '/assets'
+//      });
+//
+//    $('#user_star').raty({
+//      score: #{ @rating.score },
+//      path: '/assets',
+//      click: function(score, evt) {
+//        $.ajax({
+//          url: '#{lesson_rating_path(lesson_id: @lesson.id, id: @rating.id)}',
+//          type: 'PATCH',
+//          data: { score: score }
+//        });
+//      }
+//    });
 
     $('.toggle-course-edit').on('click', function (e) {
       e.preventDefault();
