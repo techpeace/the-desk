@@ -1,0 +1,19 @@
+- related_lessons = @course.lessons.with_standard(standard)
+
+.standard.clearfix class=(standard.substandard? ? 'substandard' : '') class=(related_lessons.any? ? 'with-lessons' : '')
+  .key = standard.key
+  .text
+    = standard.text
+
+    - if related_lessons.any?
+
+      .panel.related-lessons
+        p
+          strong Scheduled in the following lessons:
+
+        li
+          - related_lessons.each do |lesson|
+            = link_to lesson.title, lesson
+            | &nbsp;
+            span.dates = lesson.deliveries.collect { |d| l(d.date, format: :course) }.join(', ')
+

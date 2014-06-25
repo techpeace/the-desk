@@ -10,6 +10,8 @@ class Lesson < ActiveRecord::Base
 
   after_save :clear_lesson_standards
 
+  scope :with_standard, -> (standard) { joins(:lesson_standards).where('lesson_standards.standard_id = ?', standard.id) }
+
   def average_rating
     begin
       ratings.sum(:score) / ratings.size

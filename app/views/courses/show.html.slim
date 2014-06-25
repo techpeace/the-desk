@@ -1,58 +1,48 @@
-h2 Course: #{@course.title}
-div.row
-  div.columns.large-6
-    p
-      strong Grade:
-      | &nbsp; #{@course.grade}
-    p
-      strong Standards set:
-      | &nbsp; #{@course.standard_course.name}
+.course-overview
+  .row
+    .columns.large-10
+      h2.with-icon.course-title
+        i.fa.fa-book.fa-fw
+        | Course: #{@course.title}
 
-    div.course-standards-container
-      .icon-bar.three-up
-        - ["All", "Assigned", "Unassigned"].each do |title|
-          a.item href="#" class="standard-btn" data-standard="#{title.downcase}"
-            = title
-      div.standards-list.active data-standard="all"
-        ul
-          - @course.standards.each do |standard|
-            li #{truncate(standard.text, length: 50)}
-      div.standards-list data-standard="assigned"
-        - if @course.assigned_standards.empty?
-          p No standards have been assigned to a lesson.
-        ul
-          - @course.assigned_standards.each do |standard|
-            li #{truncate(standard.text, length: 50)}
-      div.standards-list data-standard="unassigned"
-        - if @course.unassigned_standards.empty?
-          p No standards left to assigned!
-        ul
-          - @course.unassigned_standards.each do |standard|
-            li #{truncate(standard.text, length: 50)}
+    .columns.large-2
+      == link_to 'New lesson plan', new_lesson_path(course_id: @course.id), class: 'button small right', id: 'add-lesson-plan'
 
-  div.columns.large-6
-    div.row
-      div.columns.large-6
-        h3 Lessons
-      div.columns.large-6
-        == link_to 'New lesson plan', new_lesson_path(course_id: @course.id), class: 'button small right'
-    ul
+  .row
+    p.course-info <strong>Grade:</strong> #{@course.grade} &nbsp; <strong>Standards set:</strong> #{@course.standard_course.name}
+
+    h3.with-icon.lessons-list-header
+      i.fa.fa-file-text.fa-fw
+      | Lessons
+
+    ul.lessons-list
       - @course.lessons.each do |lesson|
         li #{link_to lesson.title, lesson_path(lesson.id)}
 
-- content_for :javascript do
-  javascript:
-    new (Backbone.View.extend({
-      el: $('.course-standards-container'),
-      events: {
-        'click .standard-btn' : 'changeView'
-      },
-      initialize: function () {
-        this.$standards = this.$('.standards-list');
-      },
-      changeView: function (e) {
-        e.preventDefault();
-        var state = $(e.target).attr('data-standard');
-        this.$standards.removeClass('active').siblings('[data-standard=' + state + ']').addClass('active')
-      }
-    }))({});
+    h3.with-icon.standards-list-header
+      i.fa.fa-graduation-cap.fa-fw
+      | Standards
+
+    .course-standards-container
+      ul.tabs(data-tab)
+        li.tab-title.active
+          a href='#standards-all' All standards
+        li.tab-title
+          a href='#standards-assigned' Assigned
+        li.tab-title
+          a href='#standards-unassigned' Unassigned
+      .tabs-content.standard-list
+        .content.active#standards-all
+          = render partial: 'standard', collection: @course.standards
+
+        .content#standards-assigned
+          - if @course.assigned_standards.empty?
+            p No standards have been assigned to a lesson.
+          - else
+            = render partial: 'standard', collection: @course.assigned_standards
+
+        .content#standards-unassigned
+          - if @course.unassigned_standards.empty?
+            p No standards left to assigned!
+          - else
+            = render partial: 'standard', collection: @course.unassigned_standards

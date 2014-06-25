@@ -7,3 +7,103 @@
     display: block;
   }
 }
+
+.course-overview {
+  margin-top: 15px;
+
+  h2.course-title {
+    //margin-left: -61px;
+  }
+
+  p.course-info {
+    color: $secondary-body-font-color;
+  }
+
+  h3 {
+    margin-top: 30px;
+  }
+
+  ul.lessons-list {
+    list-style: none;
+    margin-left: 0px;
+    margin-top: 25px;
+  }
+
+  .course-standards-container {
+    margin-top: 15px;
+  }
+
+  ul.tabs li {
+    border: 1px solid $tabs-navigation-bg-color;
+    border-bottom: none;
+  }
+
+  .standard-list {
+    border: 1px solid $tabs-navigation-bg-color;
+  }
+
+  // STANDARDS
+
+  .standard-list .standard {
+    border-bottom: 1px dotted $tabs-navigation-bg-color;
+    padding: 10px 0 10px 13px;
+    border-left: 10px solid $primary-color;
+    line-height: 1.5em;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .key {
+      width: 8%;
+      float: left;
+      font-size: 130%;
+      font-weight: bold;
+    }
+
+    .text {
+      font-size: 110%;
+      width: 92%;
+      float: right;
+    }
+
+    &.substandard {
+      border-left: 10px solid lighten($primary-color, 40%);
+
+      .key {
+        font-size: 120%;
+        padding-left: 10px;
+      }
+
+      .text {
+        font-size: 100%;
+      }
+    }
+
+    &.with-lessons {
+      background-color: #b6ffb9;
+
+      .key {
+        @include opacity(0.3);
+      }
+
+      .text {
+        font-style: italic;
+      }
+    }
+
+    .panel.related-lessons {
+      margin-top: 5px;
+      margin-right: 90px;
+      font-style: normal;
+
+      p, li {
+        font-size: 80%;
+      }
+
+      ul {
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
