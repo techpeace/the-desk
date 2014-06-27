@@ -9,11 +9,16 @@
 # See http://railsapps.github.io/rails-environment-variables.html
 puts 'ROLES'
 YAML.load(ENV['ROLES']).each do |role|
-  Role.find_or_create_by_name(role)
+  Role.find_or_create_by(name: role)
   puts 'role: ' << role
 end
 puts 'DEFAULT USERS'
-user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
-puts 'user: ' << user.name
-user.confirm!
-user.add_role :admin
+user = User.find_or_create_by(:name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup)
+
+if user.new_record?
+  user.update_attributes(:password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup)
+  user.save!
+  ap(('user: ' << user.name), :color => {string: "green"})
+  user.confirm!
+  user.add_role :admin
+end

@@ -35,6 +35,11 @@ class LessonsController < ApplicationController
     @lessons = current_user.lessons
   end
 
+  def show
+    @lesson = Lesson.find(params[:id])
+    @new_comment = Comment.new
+  end
+
   private
 
   def lesson_params

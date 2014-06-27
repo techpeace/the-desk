@@ -8,6 +8,8 @@ TheDesk::Application.routes.draw do
   resources :courses, only: [:new, :create, :show, :index]
 
   resources :lessons, only: [:show, :new, :create, :update] do
+    post "/comments" => "comments#create", :as => :comments
+
     collection do
       get 'calendar'
     end
