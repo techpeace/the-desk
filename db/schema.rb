@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20140113060320) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_public",  default: false
+    t.boolean  "public",     default: false
     t.integer  "course_id"
   end
 

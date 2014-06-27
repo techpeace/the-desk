@@ -6,7 +6,7 @@
   - @lesson.comments.each do |comment|
     = render partial: 'comment', locals: { comment: comment }
 
-  - if @lesson.is_public
+  - if @lesson.public?
     = simple_form_for [@lesson, @new_comment] do |f|
       = f.input :message, label: 'Add a comment to this lesson plan'
       / = f.input :message
