@@ -1,6 +1,3 @@
-require 'faker'
-require Rails.root.join('spec', 'support', 'blueprints')
-
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -12,33 +9,13 @@ require Rails.root.join('spec', 'support', 'blueprints')
 # See http://railsapps.github.io/rails-environment-variables.html
 puts 'ROLES'
 YAML.load(ENV['ROLES']).each do |role|
-  Role.find_or_create_by_name(role)
+  Role.find_or_create_by(name: role)
   puts 'role: ' << role
 end
 puts 'DEFAULT USERS'
-user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+user = User.find_or_create_by(:name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup)
+user.update_attributes(:password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup)
+user.save! if user.new_record?
 puts 'user: ' << user.name
 user.confirm!
 user.add_role :admin
-
-
-
-User.make!(5).each do |user|
-  Lesson.make(10, :public_private_mix).each do |lesson|
-    lesson.user_id = user.id
-    lesson.save(validation: false)
-  end
-end
-
-Lesson.all.each do |lesson|
-  Comment.make(5).each do |comment|
-    comment.lesson_id = lesson.id
-    comment.user_id = (User.all.map &:id).sample
-    comment.save(validation: false)
-  end
-end
-
-
-
-
-
