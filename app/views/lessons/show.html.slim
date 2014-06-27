@@ -3,11 +3,9 @@
 
   .body== @lesson.body
 
-  p Average rating
-    div#star
+  p <span id="star"></span> Average rating
 
-  p Your rating
-    div#user_star
+  p <span id="user_star"></span> Your rating
 
   - @lesson.comments.each do |comment|
     = render partial: 'comment', locals: { comment: comment }
@@ -19,3 +17,23 @@
       = f.hidden_field :lesson_id, value: @lesson.id
       = f.hidden_field :user_id,  value: current_user.id
       = f.submit
+
+- content_for :javascript do
+  javascript:
+    $('#star').raty({
+      readOnly: true,
+      score: #{ @lesson.average_rating },
+      path: '/assets'
+      });
+
+    $('#user_star').raty({
+      score: #{ @rating.score },
+      path: '/assets',
+      click: function(score, evt) {
+        $.ajax({
+          url: '#{lesson_rating_path(lesson_id: @lesson.id, id: @rating.id)}',
+          type: 'PATCH',
+          data: { score: score }
+        });
+      }
+    });
