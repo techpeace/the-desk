@@ -14,7 +14,6 @@ gem 'figaro'
 gem 'pg'
 gem 'rolify'
 gem 'simple_form'
-gem 'haml-rails'
 gem 'slim'
 gem 'thin'
 gem 'foundation-rails'
@@ -42,6 +41,7 @@ end
 group :development, :test do
   gem 'fabrication'
   gem 'rspec-rails'
+  gem 'pry'
 end
 
 group :production do
