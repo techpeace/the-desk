@@ -36,8 +36,8 @@ class LessonsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
-    @lesson = @user.lessons.find(params[:id])
+    @lesson = Lesson.find(params[:id])
+    @new_comment = Comment.new
   end
 
   private
