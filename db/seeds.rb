@@ -14,8 +14,11 @@ YAML.load(ENV['ROLES']).each do |role|
 end
 puts 'DEFAULT USERS'
 user = User.find_or_create_by(:name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup)
-user.update_attributes(:password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup)
-user.save! if user.new_record?
-puts 'user: ' << user.name
-user.confirm!
-user.add_role :admin
+
+if user.new_record?
+  user.update_attributes(:password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup)
+  user.save!
+  ap(('user: ' << user.name), :color => {string: "green"})
+  user.confirm!
+  user.add_role :admin
+end
