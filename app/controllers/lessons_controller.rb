@@ -38,6 +38,8 @@ class LessonsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @lesson = @user.lessons.find(params[:id])
+  end
+
   private
 
   def lesson_params
