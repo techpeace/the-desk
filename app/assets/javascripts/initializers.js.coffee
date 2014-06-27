@@ -13,14 +13,14 @@ window.init = {
       if deliver.date
         deliveriesCollection.add(delivery)
 
-  calendar: (userId) ->
+  calendar: (calendarUrl) ->
     $('#calendar').fullCalendar({
       header:
         left: 'title',
         center: 'month,basicWeek'
         right: 'today prev,next'
       events:
-        url: "/users/" + userId + "/calendars"
+        url: calendarUrl
         type: "GET"
         cache: true
     })

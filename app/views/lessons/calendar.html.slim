@@ -5,4 +5,4 @@ h1 Calendar
 - content_for :javascript do
 
   javascript:
-    init.calendar(#{raw current_user.id})
+    init.calendar("#{user_calendar_path(current_user.id)}")

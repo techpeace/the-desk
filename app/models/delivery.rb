@@ -2,19 +2,12 @@ class Delivery < ActiveRecord::Base
   belongs_to :lesson
 
   def self.get_dates_for_calendar_in(range)
-    deliveries = self.where("date" => range)
-    deliveries.map do |date|
+    deliveries = self.includes(:lesson).where(date: range).select([:lesson_id, :date])
+    deliveries.map do |delivery|
       {
-        title: date.lesson.title,
-        start: date.date
+        title: delivery.lesson.try(:title),
+        start: delivery.date
       }
     end
-  end
-
-  def as_json(options={})
-    {
-      id: self.id,
-      date: self.date
-    }
   end
 end
