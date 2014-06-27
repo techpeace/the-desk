@@ -1,9 +1,8 @@
 class CalendarsController < ApplicationController
-  def index
+  def show
     hash = (params[:user_id] + params[:start] + params[:end])
 
     respond_to do |format|
-      format.html
       format.json {
         deliveries = Rails.cache.fetch(hash, expires_in: 10) do
           time_range = Time.at(params[:start].to_i)..Time.at(params[:end].to_i)
