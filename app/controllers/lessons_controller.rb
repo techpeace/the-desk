@@ -9,13 +9,9 @@ class LessonsController < ApplicationController
 
   def show
     # TODO: Needs to be an interaction
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
-
-    @lesson = @user.lessons.find params[:id]
+    @lesson = Lesson.find(params[:id])
+    @new_comment = Comment.new
+    @rating = @lesson.ratings.where(user_id: current_user.id).first_or_create
   end
 
   def update
@@ -33,11 +29,6 @@ class LessonsController < ApplicationController
 
   def calendar
     @lessons = current_user.lessons
-  end
-
-  def show
-    @lesson = Lesson.find(params[:id])
-    @new_comment = Comment.new
   end
 
   private
