@@ -1,5 +1,8 @@
 .lesson
   h2.title= @lesson.title
+  - if @lesson.course
+    h4
+      | Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
 
   .body== @lesson.body
 
