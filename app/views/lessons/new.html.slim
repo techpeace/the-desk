@@ -5,8 +5,6 @@ h3.with-icon
   | Schedule
 
 ul.delivery-dates
-  -@lesson.deliveries.all.each do |date|
-    = date.date.strftime('%a, %b %d, %Y') if date.date
 
 = simple_form_for [@lesson, @delivery], html: { id: 'delivery-form' } do |f|
   = f.input :date, as: 'string', input_html: { placeholder: 'ex. next Thursday, Fri Nov 22nd, or 12/22/13' }
