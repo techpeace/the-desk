@@ -1,0 +1,9 @@
+.standards-list {
+  height: 300px;
+  overflow: auto;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}

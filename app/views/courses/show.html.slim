@@ -8,9 +8,51 @@ div.row
       strong Standards set:
       | &nbsp; #{@course.standard_course.name}
 
-    == link_to 'New lesson plan', new_lesson_path(course_id: @course), class: 'button small'
+    div.course-standards-container
+      .icon-bar.three-up
+        - ["All", "Assigned", "Unassigned"].each do |title|
+          a.item href="#" class="standard-btn" data-standard="#{title.downcase}"
+            = title
+      div.standards-list.active data-standard="all"
+        ul
+          - @course.standards.each do |standard|
+            li #{truncate(standard.text, length: 50)}
+      div.standards-list data-standard="assigned"
+        - if @course.assigned_standards.empty?
+          p No standards have been assigned to a lesson.
+        ul
+          - @course.assigned_standards.each do |standard|
+            li #{truncate(standard.text, length: 50)}
+      div.standards-list data-standard="unassigned"
+        - if @course.unassigned_standards.empty?
+          p No standards left to assigned!
+        ul
+          - @course.unassigned_standards.each do |standard|
+            li #{truncate(standard.text, length: 50)}
+
   div.columns.large-6
-    h3 Lessons
+    div.row
+      div.columns.large-6
+        h3 Lessons
+      div.columns.large-6
+        == link_to 'New lesson plan', new_lesson_path(course_id: @course), class: 'button small right'
     ul
       - @course.lessons.each do |lesson|
         li #{link_to lesson.title, lesson_path(lesson.id)}
+
+- content_for :javascript do
+  javascript:
+    new (Backbone.View.extend({
+      el: $('.course-standards-container'),
+      events: {
+        'click .standard-btn' : 'changeView'
+      },
+      initialize: function () {
+        this.$standards = this.$('.standards-list');
+      },
+      changeView: function (e) {
+        e.preventDefault();
+        var state = $(e.target).attr('data-standard');
+        this.$standards.removeClass('active').siblings('[data-standard=' + state + ']').addClass('active')
+      }
+    }))({});
