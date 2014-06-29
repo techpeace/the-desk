@@ -17,7 +17,7 @@ h3.with-icon
 = simple_form_for @lesson do |f|
   = f.input :title
   = f.input :body, as: 'ckeditor', label: false
-  = f.input :course_id, collection: current_user.courses.to_a
+  = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course."
   = f.button :submit, 'Create Lesson Plan', id: 'lesson-form-submit'
 
 =content_for :javascript do
