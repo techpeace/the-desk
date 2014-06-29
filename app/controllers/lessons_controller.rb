@@ -3,8 +3,15 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = current_user.lessons.create draft: true
-    @delivery = @lesson.deliveries.build
     @deliveries = @lesson.deliveries.to_json
+    @delivery = @lesson.deliveries.build
+  end
+
+  def edit
+    @lesson = Lesson.find(params[:id])
+    @deliveries = @lesson.deliveries.to_json
+    @delivery = @lesson.deliveries.build
+    render :new
   end
 
   def show

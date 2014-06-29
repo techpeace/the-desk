@@ -6,7 +6,7 @@ TheDesk::Application.routes.draw do
 
   resources :courses, only: [:new, :create, :show, :index]
 
-  resources :lessons, only: [:show, :new, :create, :update] do
+  resources :lessons do
     post "/comments" => "comments#create", :as => :comments
 
     resources :ratings, only: [:update]
