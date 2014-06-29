@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   belongs_to :standard_course
+  has_many :standards, :through => :standard_course
   belongs_to :user
   has_many :lessons
 
