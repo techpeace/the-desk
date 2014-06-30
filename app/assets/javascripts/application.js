@@ -21,6 +21,7 @@
 //= require fullcalendar.min
 //= require jquery.raty.min.js
 //= require moment
+//= require select2
 //= require util
 //= require_tree ./models_collections
 //= require_tree ./views

@@ -22,6 +22,7 @@ gem 'active_interaction', '~> 0.8.0'
 gem 'ckeditor', :git => 'https://github.com/galetahub/ckeditor.git'
 gem 'chronic'
 gem 'inherited_resources'
+gem "select2-rails"
 
 group :development do
   gem 'better_errors'
