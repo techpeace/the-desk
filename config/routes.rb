@@ -10,6 +10,7 @@ TheDesk::Application.routes.draw do
     post "/comments" => "comments#create", :as => :comments
 
     resources :ratings, only: [:update]
+    resources :lesson_standards, only: [:create, :destroy]
 
     collection do
       get 'calendar'
