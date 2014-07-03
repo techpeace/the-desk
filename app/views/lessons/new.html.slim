@@ -1,28 +1,33 @@
-h2 New Lesson Plan
-
-h3.with-icon
-  i.fa.fa-calendar.fa-fw
-  | Schedule
-
-ul.delivery-dates
-
-= simple_form_for [@lesson, @delivery], html: { id: 'delivery-form' } do |f|
-  = f.input :date, as: 'string', input_html: { placeholder: 'ex. next Thursday, Fri Nov 22nd, or 12/22/13' }
-  = f.button :submit, 'Schedule Lesson'
-
-h3.with-icon
-  i.fa.fa-file.fa-fw
-  | Lesson Plan
+h2
+  = @lesson.title || "New Lesson Plan"
 
 = simple_form_for @lesson do |f|
-  = f.input :title
-  = f.input :body, as: 'ckeditor', label: false
-  br
-  h3.with-icon
-    i.fa.fa-road.fa-fw
-    | Course
-  = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false
-  = f.button :submit, 'Create Lesson Plan', id: 'lesson-form-submit'
+  div.row
+    div.columns.large-8
+      h3.with-icon
+        i.fa.fa-file.fa-fw
+        | Lesson Plan
+    div.columns.large-4.text-right
+      h4.with-icon
+        i.fa.fa-road.fa-fw
+        | Course
+      = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false, input_html: { class: "with-select2" }
+
+    = f.input :title
+    = f.input :body, as: "ckeditor", label: false
+    br
+    div.row
+      div.columns.large-12.text-right
+        = f.button :submit, "Create Lesson Plan", id: "lesson-form-submit"
+div.row
+  div.columns.large-4
+    h3.with-icon
+      i.fa.fa-calendar.fa-fw
+      | Schedule
+      = simple_form_for [@lesson, @delivery] do |f|
+        = f.input :date, :as => :string, placeholder: "ex. next Thursday, Fri Nov 22nd, or 12/22/13"
+        = f.submit "Schedule Lesson", :class => "button small"
+    ul.delivery-dates
 
 =content_for :javascript do
   #templates
@@ -33,23 +38,23 @@ h3.with-icon
         i.fa.fa-minus-circle
 
   javascript:
-    var url = "#{lesson_deliveries_path @lesson}"
+    var url = '#{lesson_deliveries_path @lesson}'
     init.deliveries(#{raw @deliveries}, url)
 
   coffee:
     $ ->
-      $("#delivery-form").on "submit", (e) ->
+      $('#new_delivery').on 'submit', (e) ->
         e.preventDefault()
 
         $.ajax {
           url: url,
-          method: "POST",
+          method: 'POST',
           data: {
             delivery: {
-              date: $("#delivery_date").val()
+              date: $('#delivery_date').val()
             }
           }
           success: (data) ->
             deliveriesCollection.add(data)
-            $("#delivery_date").val("")
+            $('#delivery_date').val('')
         }
