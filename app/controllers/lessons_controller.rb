@@ -46,5 +46,6 @@ class LessonsController < ApplicationController
     @deliveries = @lesson.deliveries.to_json
     @delivery = @lesson.deliveries.build
     @standard = @lesson.lesson_standards.build
+    @standards = @lesson.try(:course).try(:standards)
   end
 end
