@@ -21,6 +21,7 @@
 //= require fullcalendar.min
 //= require jquery.raty.min.js
 //= require lunr.min.js
+//= require fuse.min.js
 //= require moment
 //= require select2
 //= require util
