@@ -5,12 +5,13 @@
       - if @lesson.course
         h4
           | Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
-
-      .body== @lesson.body
-
       p <span id="star"></span> Average rating
 
       p <span id="user_star"></span> Your rating
+
+  div.row
+    div.columns.large-12
+      .body== @lesson.body
 
       - @lesson.comments.each do |comment|
         = render partial: 'comment', locals: { comment: comment }
@@ -22,8 +23,9 @@
           = f.hidden_field :lesson_id, value: @lesson.id
           = f.hidden_field :user_id,  value: current_user.id
           = f.submit
-    div.columsn.large-12
-      = render 'shared/standards_search' if @lesson.course_id
+    - if @lesson.course_id
+      div.columns.large-12
+        = render 'shared/standards_search'
 
 - content_for :javascript do
   javascript:
