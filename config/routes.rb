@@ -4,7 +4,9 @@ TheDesk::Application.routes.draw do
     get "/calendar" => "calendars#show", :as => :calendar
   end
 
-  resources :courses, only: [:new, :create, :show, :index]
+  resources :courses, only: [:new, :create, :show, :index] do
+    get "/standards" => "courses#list_of_standards", :as => :standards
+  end
 
   resources :lessons do
     post "/comments" => "comments#create", :as => :comments
