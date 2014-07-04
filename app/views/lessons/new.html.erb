@@ -11,7 +11,7 @@
       </h3>
     </div>
 
-    <div class="columns large-4 text-=right">
+    <div class="columns large-4 text-right">
       <h4 class="with-icon">
         <i class="fa fa-road fa-fw"></i>
         Course
@@ -22,7 +22,7 @@
   <div class="row">
     <div class="large-12 columns">
       <%= f.input :title %>
-      <%= cktext_area :body, label: false %>
+      <%= f.cktext_area :body %>
     </div>
     <div class="large-12 columns text-right">
       <%= f.button :submit, "Create Lesson Plan", id: "lesson-form-submit" %>

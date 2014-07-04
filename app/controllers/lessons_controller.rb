@@ -25,11 +25,13 @@ class LessonsController < ApplicationController
       params: lesson_params
     )
 
-    redirect_to @lesson, success: 'Lesson successfully created.'
+    flash[:success] = 'Lesson successfully updated.'
+
+    redirect_to @lesson
   rescue ActiveInteraction::InvalidInteractionError
     # TODO: Figure out what to do with outcome.errors
-    # flash[:error] =
-    render :new
+    flash[:error] = "Unable to save lesson."
+    redirect_to edit_lesson_path params[:id]
   end
 
   def calendar
