@@ -45,11 +45,12 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     !function () {
-      var standards = new SearchCollection();
+      var standards = new SearchCollection({
+        url: "<%= j course_standards_path @lesson.course_id, :format => :json %>"
+      });
       var standardsView = new SearchView({
         collection: standards
       });
-      standards.reset(<%= raw @lesson.course.standards.to_a.to_json %>);
     }();
   </script>
 <% end %>

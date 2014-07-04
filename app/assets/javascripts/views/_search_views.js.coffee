@@ -14,6 +14,7 @@ window.SearchView = Backbone.View.extend
   el: $('.standards-view')
   initialize: (options) ->
     @listenTo(@collection, 'reset', @fillIndex)
+    @collection.fetch({reset: true})
     @childViews = []
   fillIndex: (collection) ->
     @fuse = new Fuse(collection.toJSON(),
