@@ -1,6 +1,10 @@
 class LessonsController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+    @lesson = current_user.lessons
+  end
+
   def new
     @lesson = current_user.lessons.create draft: true
     setup_variables_for_new_edit
