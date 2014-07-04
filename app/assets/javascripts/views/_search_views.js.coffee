@@ -3,9 +3,9 @@ selectedCollection = new (Backbone.Collection.extend
 )()
 
 SelectedView = Backbone.View.extend
-  template: _.template('<li><a href="#" class="remove-standard" data-model-id=\'{{ id }}\'><i class="fa fa-minus-circle"></i></a>&nbsp;&nbsp;&nbsp;{{ key }}</li>')
+  template: _.template('<li><a href="#" class="destroy-link" data-model-id=\'{{ id }}\'><i class="fa fa-trash-o fa-fw"></i></a>&nbsp;&nbsp;&nbsp;{{ key }}</li>')
   events:
-    'click a.remove-standard': 'removeStandard'
+    'click a.destroy-link': 'removeStandard'
   removeStandard: (e) ->
     e.preventDefault()
     id = $(e.currentTarget).data('model-id')
