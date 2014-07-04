@@ -12,32 +12,36 @@
             = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false, input_html: { class: "with-select2" }
             | &nbsp;&nbsp;&nbsp;
             = f.button :submit, "Update Course", :class => "tiny button"
-    div.columns.large-6.clearfix
-      br
-      br
-      div.right
-        p <span id="star"></span>&nbsp;&nbsp;Average rating
-        p <span id="user_star"></span>&nbsp;&nbsp;Your rating
-
-  - if @lesson.course_id
-    div.row
-      div.columns.large-12
-        = render 'shared/standards_search'
+    div.columns.large-4.right.clearfix
+      - if @lesson.course_id
+        | <a href="#" class="button tiny radius manage-standards" data-reveal-id="my-standard-modal"><i class="fa fa-cog fa-fw"></i></a>
+        h3.with-action Standards
+        div#my-standard-modal.reveal-modal data={reveal: ""}
+          div.row
+            div.columns.large-12
+              = render 'shared/standards_search'
+  div.row
+    div.columns.large-4
+      p <span id="star"></span>&nbsp;&nbsp;Average rating
+      p <span id="user_star"></span>&nbsp;&nbsp;Your rating
 
   div.row
     div.columns.large-12
       .body== @lesson.body
 
+- if @lesson.public?
+  div.row.comments-section
+    h3 Comments
+    div.columns.large-5
+      = simple_form_for [@lesson, @new_comment] do |f|
+        = f.input :message, label: 'Add a comment to this lesson plan'
+        / = f.input :message
+        = f.hidden_field :lesson_id, value: @lesson.id
+        = f.hidden_field :user_id,  value: current_user.id
+        = f.submit :submit, :class => "button small radius"
+    div.columns.large-6.large-offset-1
       - @lesson.comments.each do |comment|
         = render partial: 'comment', locals: { comment: comment }
-
-      - if @lesson.public?
-        = simple_form_for [@lesson, @new_comment] do |f|
-          = f.input :message, label: 'Add a comment to this lesson plan'
-          / = f.input :message
-          = f.hidden_field :lesson_id, value: @lesson.id
-          = f.hidden_field :user_id,  value: current_user.id
-          = f.submit :submit, :class => "button small"
 
 - content_for :javascript do
   javascript:

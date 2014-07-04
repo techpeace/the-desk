@@ -26,8 +26,23 @@
   }
 }
 
+.comments-section {
+  background-color: #efefef;
+  padding: 5px;
+}
 
-//// Tables in Lessons#Index
+
+//// Lessson#show
+.button.tiny.manage-standards {
+  font-size: 12px;
+  padding: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+
+}
+
+
+//// Lessons#Index
 
 table.lessons {
   th, td{
