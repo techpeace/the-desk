@@ -1,25 +1,29 @@
 .lesson
-  h2.title= @lesson.title
-  - if @lesson.course
-    h4
-      | Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
+  div.row
+    div.columns.large-12
+      h2.title= @lesson.title
+      - if @lesson.course
+        h4
+          | Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
 
-  .body== @lesson.body
+      .body== @lesson.body
 
-  p <span id="star"></span> Average rating
+      p <span id="star"></span> Average rating
 
-  p <span id="user_star"></span> Your rating
+      p <span id="user_star"></span> Your rating
 
-  - @lesson.comments.each do |comment|
-    = render partial: 'comment', locals: { comment: comment }
+      - @lesson.comments.each do |comment|
+        = render partial: 'comment', locals: { comment: comment }
 
-  - if @lesson.public?
-    = simple_form_for [@lesson, @new_comment] do |f|
-      = f.input :message, label: 'Add a comment to this lesson plan'
-      / = f.input :message
-      = f.hidden_field :lesson_id, value: @lesson.id
-      = f.hidden_field :user_id,  value: current_user.id
-      = f.submit
+      - if @lesson.public?
+        = simple_form_for [@lesson, @new_comment] do |f|
+          = f.input :message, label: 'Add a comment to this lesson plan'
+          / = f.input :message
+          = f.hidden_field :lesson_id, value: @lesson.id
+          = f.hidden_field :user_id,  value: current_user.id
+          = f.submit
+    div.columsn.large-12
+      = render 'shared/standards_search' if @lesson.course_id
 
 - content_for :javascript do
   javascript:

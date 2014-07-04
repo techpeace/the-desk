@@ -44,65 +44,18 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="standards-view">
-    <%= simple_form_for [@lesson, @standard] do |f| %>
-      <div class="row">
-        <div class="columns large-4">
-          <h3 class="with-icon">
-            <i class="fa fa-calendar fa-fw"></i>
-            Standards
-          </h3>
-        </div>
-
-        <div class="columns large-4 large-4-offset text-right">
-          <%= f.button :submit, "Assign", :class => "button small", :type => "button" %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="columns large-12">
-          <%= f.input :standard_id, :as => :string, :input_html => { :value => "" } %>
-          <%= f.input :lesson_id, :as => :hidden %>
-        </div>
-      </div>
-    <% end %>
-
-    <div class="standards-results"></div>
-  </div>
-</div>
-
 <div id="templates">
   <script class="delivery-link" type="text/templates">
     <span class="date">{{ date }}</span>
     <a href="#" class="destroy-link"><i class="fa fa-minus-circle"></i></a>
   </script>
-
-  <script class="standard-view" type="text/templates">
-    <p>{{ text }}</p>
-  </script>
 </div>
-
-<% content_for :stylesheet do %>
-  <style>
-    <% @standards.each do |standard| %>
-      <%= ".standards-results.searching.r#{standard.id} .standard-row.r#{standard.id}{
-        display: block;
-      }" %>
-    <% end %>
-  </style>
-<% end %>
 
 <% content_for :javascript do %>
   <script type="text/javascript">
     !function () {
       var url = '<%= lesson_deliveries_path @lesson %>'
       init.deliveries(<%= raw @deliveries %>, url);
-      var standards = new SearchCollection();
-      var standardsView = new SearchView({
-        collection: standards
-      });
-      standards.reset(<%= raw @standards.to_a.to_json %>);
 
       $('#new_delivery').on('submit', function (e) {
         e.preventDefault();
