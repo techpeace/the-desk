@@ -1,8 +1,8 @@
 ResultView = Backbone.View.extend
-  template: _.template($('.standard-view').html())
   className: () ->
     return 'standard-row r' + @model.get('id')
   initialize: (options) ->
+    @template = _.template($('.standard-view').html())
   render: (options) ->
     @$el.html(@template(@model.toJSON()))
     this;
