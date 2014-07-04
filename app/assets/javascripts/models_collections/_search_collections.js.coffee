@@ -1,5 +1,5 @@
 SearchModel = Backbone.Model.extend {}
 
 window.SearchCollection = Backbone.Collection.extend {
-  model: LunarModel
+  model: SearchModel
 }
