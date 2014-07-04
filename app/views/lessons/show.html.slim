@@ -21,7 +21,7 @@
         div.lesson-standard-list
           - @lesson.standards.each do |standard|
             p
-              = link_to lesson_lesson_standard_path(@lesson, standard), method: "DELETE" do
+              = link_to lesson_lesson_standard_path(@lesson, standard), :class => "delete-standard" do
                 i.fa.fa-trash-o.fa-fw
               = standard.text
         div#my-standard-modal.reveal-modal data={reveal: ""}
@@ -81,7 +81,7 @@
         url: $(this).attr('href') + '.json',
         method: "DELETE",
         success: function (data) {
-          $(this).closests('p').remove();
+          $(this).closest('p').remove();
         }.bind(this)
-      })
+      });
     })
