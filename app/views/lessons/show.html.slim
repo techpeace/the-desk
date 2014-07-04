@@ -37,7 +37,7 @@
       .body== @lesson.body
 
 - if @lesson.public?
-  div.row.comments-section
+  div.row.panel.radius
     h3 Comments
     div.columns.large-5
       = simple_form_for [@lesson, @new_comment] do |f|
