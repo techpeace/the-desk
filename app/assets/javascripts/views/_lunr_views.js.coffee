@@ -7,7 +7,7 @@ ResultView = Backbone.View.extend
     @$el.html(@template(@model.toJSON()))
     this;
 
-window.LunrView = Backbone.View.extend
+window.SearchView = Backbone.View.extend
   events: {
     'keyup #lesson_standard_standard_id': 'fuseSearch'
   }

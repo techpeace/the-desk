@@ -101,8 +101,8 @@
     !function () {
       var url = '<%= lesson_deliveries_path @lesson %>'
       init.deliveries(<%= raw @deliveries %>, url);
-      var standards = new LunarCollection();
-      var standardsView = new LunrView({
+      var standards = new SearchCollection();
+      var standardsView = new SearchView({
         collection: standards
       });
       standards.reset(<%= raw @standards.to_a.to_json %>);
