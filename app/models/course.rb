@@ -6,6 +6,8 @@ class Course < ActiveRecord::Base
   has_many :lesson_standards, :through => :lessons
   has_many :assigned_standards, :source => :standard, :through => :lesson_standards
 
+  validates_presence_of :standard_course, message: "You must assign a standard set."
+
   def unassigned_standards
     standards.where.not(id: assigned_standards.pluck(:id))
   end
