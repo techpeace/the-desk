@@ -7,7 +7,7 @@ class LessonsController < ApplicationController
   end
 
   def edit
-    @lesson = Lesson.find(params[:id])
+    @lesson = current_user.lessons.find(params[:id])
     setup_variables_for_new_edit
     render :new
   end
@@ -31,7 +31,7 @@ class LessonsController < ApplicationController
   rescue ActiveInteraction::InvalidInteractionError
     # TODO: Figure out what to do with outcome.errors
     flash[:error] = "Unable to save lesson."
-    redirect_to edit_lesson_path params[:id]
+    redirect_to lesson_path params[:id]
   end
 
   def calendar

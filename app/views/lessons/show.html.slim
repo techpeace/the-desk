@@ -1,13 +1,23 @@
 .lesson
   div.row
-    div.columns.large-12
+    div.columns.large-6
       h2.title= @lesson.title
       - if @lesson.course
         h4
-          | Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
-      p <span id="star"></span> Average rating
-
-      p <span id="user_star"></span> Your rating
+          | <a href="#" class="toggle-course-edit"><i class="fa fa-cog"></i></a> Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
+        .edit-course.hide
+          = simple_form_for @lesson do |f|
+            = f.input :body, :as => :hidden
+            = f.input :title, :as => :hidden
+            = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false, input_html: { class: "with-select2" }
+            | &nbsp;&nbsp;&nbsp;
+            = f.button :submit, "Update Course", :class => "tiny button"
+    div.columns.large-6.clearfix
+      br
+      br
+      div.right
+        p <span id="star"></span>&nbsp;&nbsp;Average rating
+        p <span id="user_star"></span>&nbsp;&nbsp;Your rating
 
   div.row
     div.columns.large-12
@@ -45,4 +55,9 @@
           data: { score: score }
         });
       }
+    });
+
+    $('.toggle-course-edit').on('click', function (e) {
+      e.preventDefault();
+      $('.edit-course').toggleClass('hide');
     });
