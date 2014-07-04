@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @lesson = current_user.lessons
+    @lessons = current_user.lessons
   end
 
   def new
@@ -36,6 +36,16 @@ class LessonsController < ApplicationController
     # TODO: Figure out what to do with outcome.errors
     flash[:error] = "Unable to save lesson."
     redirect_to lesson_path params[:id]
+  end
+
+  def destroy
+    respond_to do |format|
+      format.json do
+        if current_user.lessons.find(params[:id]).destroy!
+          render :json => { lesson_id: params[:id] }, :status => :ok
+        end
+      end
+    end
   end
 
   def calendar

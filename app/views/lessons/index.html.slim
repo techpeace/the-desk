@@ -1,0 +1,36 @@
+h2 My Lessons
+
+
+h3 Drafts
+table.lessons
+  thead
+    tr
+      th Lesson Title
+      th Course
+      th Actions
+  tbody
+    - @lessons.where(draft: true).each do |lesson|
+      tr
+        td == link_to lesson.title || "Unnamed Lesson", lesson_path(lesson)
+        td == link_to lesson.course.title, course_path(lesson.course_id) if lesson.course_id
+        td
+          = link_to edit_lesson_path(lesson) do
+            i.fa-pencil.fa.fa-fw
+          | |
+          = link_to lesson_path(lesson), :class => "delete-lesson" do
+            i.fa-trash-o.fa.fa-fw
+
+- content_for :javascript do
+  javascript:
+    $('table.lessons').on('click', '.delete-lesson', function (e) {
+      e.preventDefault();
+      $.ajax({
+        method: 'DELETE',
+        dataType: 'json',
+        url: $(this).attr('href') + '.json',
+
+        success: function (data) {
+          $(this).closest('tr').remove();
+        }.bind(this)
+      });
+    })
