@@ -8,6 +8,8 @@ TheDesk::Application.routes.draw do
     get "/standards" => "courses#list_of_standards", :as => :standards
   end
 
+  get "courses/:grade/standards" => "courses#grade_standards", :as => :grade_standards
+
   resources :lessons do
     post "/comments" => "comments#create", :as => :comments
 

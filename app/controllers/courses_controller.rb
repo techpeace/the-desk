@@ -1,6 +1,4 @@
 class CoursesController < InheritedResources::Base
-  before_filter :fetch_standard_courses, only: [:new]
-
   def list_of_standards
     respond_to do |format|
       format.json do
@@ -10,14 +8,17 @@ class CoursesController < InheritedResources::Base
     end
   end
 
+  def grade_standards
+    respond_to do |format|
+      format.json do
+        render :json => StandardCourse.where(grade: params[:grade]).select(:id, :name), :status => :ok
+      end
+    end
+  end
+
   private
 
   def permitted_params
     params.permit(:course => [:title, :standard_course_id, :grade])
   end
-
-  def fetch_standard_courses
-    @standard_courses = StandardCourse.select(:id, :name)
-  end
-
 end
