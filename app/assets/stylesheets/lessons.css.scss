@@ -1,5 +1,21 @@
-.standards-results.searching {
+.standards-results {
+  height: 500px;
+  overflow: auto;
+  border: thin black solid;
+  margin-bottom: 50px;
+
+  .standard-row:nth-child(2n) {
+    background-color: #E9FFF2;
+  }
+
   .standard-row {
-    display: none;
+    padding: 5px;
+    border-bottom: #aaa thin solid;
+  }
+
+  &.searching {
+    .standard-row {
+      display: none;
+    }
   }
 }
