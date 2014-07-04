@@ -15,14 +15,19 @@
       </div>
 
       <div class="row">
-        <div class="columns large-12">
+        <div class="columns large-2">
+          <h5>Select Standards</h5>
+          <ul class="selected-standards">
+          </ul>
+        </div>
+        <div class="columns large-10">
           <%= f.input :standard_id, :as => :string, :input_html => { :value => "" } %>
           <%= f.input :lesson_id, :as => :hidden %>
+          <div class="standards-results"></div>
         </div>
       </div>
     <% end %>
 
-    <div class="standards-results"></div>
   </div>
 </div>
 
