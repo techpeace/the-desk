@@ -105,7 +105,7 @@
       var standardsView = new LunrView({
         collection: standards
       });
-      standards.add(<%= raw @standards.to_a.to_json %>);
+      standards.reset(<%= raw @standards.to_a.to_json %>);
 
       $('#new_delivery').on('submit', function (e) {
         e.preventDefault();

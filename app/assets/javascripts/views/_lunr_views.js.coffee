@@ -9,38 +9,33 @@ ResultView = Backbone.View.extend
 
 window.LunrView = Backbone.View.extend
   events: {
-    'keyup #lesson_standard_standard_id': 'searchLunr'
+    'keyup #lesson_standard_standard_id': 'fuseSearch'
   }
   el: $('.standards-view')
-  lunr: lunr(() ->
-    @field('text')
-  )
   initialize: (options) ->
-    @listenTo(@collection, 'add', @newEntry)
+    @listenTo(@collection, 'reset', @fillIndex)
     @childViews = []
-  newEntry: (newModel) ->
-    @lunr.add(newModel.toJSON())
-    standardView = new ResultView({
-      model: newModel
-    })
-    newModel.view = standardView
-    @$('.standards-results').prepend(standardView.render().el)
-    @childViews.push(standardView);
-  searchLunr: _.debounce((e) ->
+  fillIndex: (collection) ->
+    @fuse = new Fuse(collection.toJSON(),
+      keys: ['text']
+      id: 'id'
+    )
+
+    collection.each _.bind((model) ->
+      standardView = new ResultView(
+        model: model
+      )
+      @$('.standards-results').prepend(standardView.render().el)
+      @childViews.push(standardView);
+    , @)
+  fuseSearch: _.debounce((e) ->
     text = $(e.target).val()
     if text
       @$('.standards-results').addClass('searching')
-      @filterStandards(@lunr.search(text))
+      @resetResults(@fuse.search(text))
     else
       @$('.standards-results').removeClass('searching')
   , 150)
-  filterStandards: (results) ->
-    ids = []
-    results.forEach((result) ->
-      ids.push(result.ref)
-    )
-    @resetResults(ids)
   resetResults: (ids) ->
-    console.log(ids)
     @$('.standards-results').removeClass().addClass('standards-results searching r' + ids.join(' r'))
 
