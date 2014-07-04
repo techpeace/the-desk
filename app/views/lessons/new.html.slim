@@ -28,6 +28,22 @@ div.row
         = f.input :date, :as => :string, placeholder: "ex. next Thursday, Fri Nov 22nd, or 12/22/13"
         = f.submit "Schedule Lesson", :class => "button small"
     ul.delivery-dates
+div.row
+  div.standards-view
+    = simple_form_for [@lesson, @standard] do |f|
+      div.row
+        div.columns.large-4
+          h3.with-icon
+            i.fa.fa-calendar.fa-fw
+            | Standards
+        div.columns.large-4.large-4-offset-4.text-right
+          = f.button :submit, "Assign", :class => "button small", :type => "button"
+      div.row
+        div.columns.large-12
+            = f.input :standard_id, :as => :string, :input_html => { :value => "" }
+            = f.input :lesson_id, :as => :hidden
+    div.standards-results
+      p Please select a course to view standards.
 
 =content_for :javascript do
   #templates
@@ -37,9 +53,15 @@ div.row
       a.destroy-link href = "#" title = "Remove from schedule"
         i.fa.fa-minus-circle
 
+
   javascript:
     var url = '#{lesson_deliveries_path @lesson}'
-    init.deliveries(#{raw @deliveries}, url)
+    init.deliveries(#{raw @deliveries}, url);
+    var standards = new LunarCollection();
+    var standardsView = new LunrView({
+      collection: standards
+    });
+    standards.add(#{raw @lesson.course.try(:standards).try(:to_a).to_json});
 
   coffee:
     $ ->
@@ -58,3 +80,4 @@ div.row
             deliveriesCollection.add(data)
             $('#delivery_date').val('')
         }
+
