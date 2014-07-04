@@ -17,6 +17,12 @@
   .standard-row {
     padding: 5px;
     border-bottom: #aaa thin solid;
+
+    p {
+      margin: 0;
+      padding-bottom: 20px;
+    }
+
   }
 
   &.searching {

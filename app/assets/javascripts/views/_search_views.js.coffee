@@ -1,4 +1,22 @@
+selectedCollection = new (Backbone.Collection.extend
+  model: Backbone.Model.extend()
+)()
+
+SelectedView = Backbone.View.extend
+  template: _.template('<li><a href="#" class="remove-standard" data-model-id=\'{{ id }}\'><i class="fa fa-minus-circle"></i></a>&nbsp;&nbsp;&nbsp;{{ key }}</li>')
+  events:
+    'click a.remove-standard': 'removeStandard'
+  removeStandard: (e) ->
+    e.preventDefault()
+    id = $(e.currentTarget).data('model-id')
+    $(e.currentTarget).closest('li').remove()
+    selectedCollection.remove(id)
+  addStandard: (newModel) ->
+    @$el.append(@template(newModel.toJSON()))
+
 ResultView = Backbone.View.extend
+  events:
+    'click p': 'selectStandard'
   className: () ->
     return 'standard-row r' + @model.get('id')
   initialize: (options) ->
@@ -6,6 +24,12 @@ ResultView = Backbone.View.extend
   render: (options) ->
     @$el.html(@template(@model.toJSON()))
     this;
+  selectStandard: () ->
+    json = this.model.toJSON()
+    selectedCollection.add([json])
+    @model.collection.remove(this.model)
+    @remove()
+
 
 window.SearchView = Backbone.View.extend
   events: {
@@ -14,8 +38,12 @@ window.SearchView = Backbone.View.extend
   el: $('.standards-view')
   initialize: (options) ->
     @listenTo(@collection, 'reset', @fillIndex)
+    @listenTo(selectedCollection, 'remove', @addBack)
     @collection.fetch({reset: true})
-    @childViews = []
+    selectedView = new SelectedView(
+      el: options.selectedEl
+    )
+    selectedView.listenTo(selectedCollection, "add", selectedView.addStandard)
   fillIndex: (collection) ->
     @fuse = new Fuse(collection.toJSON(),
       keys: ['text']
@@ -26,8 +54,8 @@ window.SearchView = Backbone.View.extend
       standardView = new ResultView(
         model: model
       )
+      model.view = standardView
       @$('.standards-results').prepend(standardView.render().el)
-      @childViews.push(standardView);
     , @)
   fuseSearch: _.debounce((e) ->
     text = $(e.target).val()
@@ -39,4 +67,13 @@ window.SearchView = Backbone.View.extend
   , 150)
   resetResults: (ids) ->
     @$('.standards-results').removeClass().addClass('standards-results searching r' + ids.join(' r'))
+  addBack: (newModel) ->
+    newModel = @collection.add(newModel.toJSON())
+    standardView = new ResultView(
+      model: newModel
+    )
+    newModel.view = standardView
+    index = (@collection.indexOf(newModel) || 0) - 1;
+    @collection.at(index).view.$el.before(standardView.render().el)
+
 
