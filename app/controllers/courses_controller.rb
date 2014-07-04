@@ -1,4 +1,16 @@
 class CoursesController < InheritedResources::Base
+
+  def create
+    @course = Course.new(course_params)
+    if @course.save
+      flash[:success] = "Course created!"
+      redirect_to course_path @course
+    else
+      flash[:error] = @course.errors.messages.values.join(", ")
+      render :new
+    end
+  end
+
   def list_of_standards
     respond_to do |format|
       format.json do
@@ -11,14 +23,16 @@ class CoursesController < InheritedResources::Base
   def grade_standards
     respond_to do |format|
       format.json do
-        render :json => StandardCourse.where(grade: params[:grade]).select(:id, :name), :status => :ok
+        render :json => StandardCourse.includes(:standards)
+                          .where(standards: {grade: params[:grade]})
+                          .select(:id, :name), :status => :ok
       end
     end
   end
 
   private
 
-  def permitted_params
-    params.permit(:course => [:title, :standard_course_id, :grade])
+  def course_params
+    params.require(:course).permit(:title, :standard_course_id, :grade)
   end
 end
