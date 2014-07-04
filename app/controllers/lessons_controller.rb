@@ -3,14 +3,12 @@ class LessonsController < ApplicationController
 
   def new
     @lesson = current_user.lessons.create draft: true
-    @deliveries = @lesson.deliveries.to_json
-    @delivery = @lesson.deliveries.build
+    setup_variables_for_new_edit
   end
 
   def edit
     @lesson = Lesson.find(params[:id])
-    @deliveries = @lesson.deliveries.to_json
-    @delivery = @lesson.deliveries.build
+    setup_variables_for_new_edit
     render :new
   end
 
@@ -42,5 +40,11 @@ class LessonsController < ApplicationController
 
   def lesson_params
     params.require(:lesson).permit(:title, :body, :course_id)
+  end
+
+  def setup_variables_for_new_edit
+    @deliveries = @lesson.deliveries.to_json
+    @delivery = @lesson.deliveries.build
+    @standard = @lesson.lesson_standards.build
   end
 end
