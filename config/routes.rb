@@ -5,7 +5,7 @@ TheDesk::Application.routes.draw do
   end
 
   resources :courses, only: [:new, :create, :show, :index] do
-    get "/standards" => "courses#list_of_standards", :as => :standards
+    get "/unassigned_standards" => "courses#list_of_unassigned_standards", :as => :unassigned_standards
   end
 
   get "courses/:grade/grade_standards" => "courses#grade_standards", :as => :grade_standards

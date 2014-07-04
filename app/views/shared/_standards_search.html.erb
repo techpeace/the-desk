@@ -51,10 +51,11 @@
   <script type="text/javascript">
     !function () {
       var standards = new SearchCollection({
-        url: "<%= j course_standards_path @lesson.course_id, :format => :json %>"
+        url: "<%= j course_unassigned_standards_path @lesson.course_id, :format => :json %>"
       });
       var standardsView = new SearchView({
-        collection: standards
+        collection: standards,
+        selectedEl: $('.selected-standards')
       });
     }();
   </script>

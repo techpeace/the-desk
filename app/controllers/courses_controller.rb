@@ -11,11 +11,11 @@ class CoursesController < InheritedResources::Base
     end
   end
 
-  def list_of_standards
+  def list_of_unassigned_standards
     respond_to do |format|
       format.json do
         course = Course.find params[:course_id]
-        render :json => course.standards.select([:id, :text, :keywords]).to_json, :status => :ok
+        render :json => course.unassigned_standards.select([:id, :text, :key]).to_json, :status => :ok
       end
     end
   end
