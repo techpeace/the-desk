@@ -1,6 +1,6 @@
 .lesson
   div.row
-    div.columns.large-6
+    div.columns.large-4
       h2.title= @lesson.title
       - if @lesson.course
         h4
@@ -12,18 +12,25 @@
             = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false, input_html: { class: "with-select2" }
             | &nbsp;&nbsp;&nbsp;
             = f.button :submit, "Update Course", :class => "tiny button"
-    div.columns.large-4.right.clearfix
+      p <span id="star"></span>&nbsp;&nbsp;Average rating
+      p <span id="user_star"></span>&nbsp;&nbsp;Your rating
+    div.columns.large-6.right.clearfix
       - if @lesson.course_id
         | <a href="#" class="button tiny radius manage-standards" data-reveal-id="my-standard-modal"><i class="fa fa-cog fa-fw"></i></a>
         h3.with-action Standards
+        div.lesson-standard-list
+          - @lesson.standards.each do |standard|
+            p
+              = link_to lesson_lesson_standard_path(@lesson, standard), method: "DELETE" do
+                i.fa.fa-trash-o.fa-fw
+              = standard.text
         div#my-standard-modal.reveal-modal data={reveal: ""}
           div.row
             div.columns.large-12
               = render 'shared/standards_search'
   div.row
     div.columns.large-4
-      p <span id="star"></span>&nbsp;&nbsp;Average rating
-      p <span id="user_star"></span>&nbsp;&nbsp;Your rating
+
 
   div.row
     div.columns.large-12
@@ -67,3 +74,14 @@
       e.preventDefault();
       $('.edit-course').toggleClass('hide');
     });
+
+    $('.lesson-standard-list').on('click', '.delete-standard', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: $(this).attr('href') + '.json',
+        method: "DELETE",
+        success: function (data) {
+          $(this).closests('p').remove();
+        }.bind(this)
+      })
+    })
