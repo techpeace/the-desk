@@ -34,12 +34,14 @@ ResultView = Backbone.View.extend
 window.SearchView = Backbone.View.extend
   events: {
     'keyup #lesson_standard_standard_id': 'fuseSearch'
+    'click .submit-standards': 'submitStandards'
   }
   el: $('.standards-view')
   initialize: (options) ->
     @listenTo(@collection, 'reset', @fillIndex)
     @listenTo(selectedCollection, 'remove', @addBack)
     @collection.fetch({reset: true})
+    @lessonId = options.lessonId
     selectedView = new SelectedView(
       el: options.selectedEl
     )
@@ -75,5 +77,16 @@ window.SearchView = Backbone.View.extend
     newModel.view = standardView
     index = (@collection.indexOf(newModel) || 0) - 1;
     @collection.at(index).view.$el.before(standardView.render().el)
+  submitStandards: (e) ->
+    e.preventDefault()
+    $.ajax(
+      url: '/lessons/' + @lessonId + '/lesson_standards.json'
+      method: "POST"
+      data: {
+        standardIds: selectedCollection.pluck('id')
+      }
+      success: (data) ->
+        location.reload()
+    )
 
 

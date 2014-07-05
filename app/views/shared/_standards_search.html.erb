@@ -10,7 +10,7 @@
         </div>
 
         <div class="columns large-4 large-4-offset text-right">
-          <%= f.button :submit, "Assign", :class => "button small", :type => "button" %>
+          <%= f.button :submit, "Assign", :class => "button small submit-standards", :type => "button" %>
         </div>
       </div>
 
@@ -21,13 +21,12 @@
           </ul>
         </div>
         <div class="columns large-10">
-          <%= f.input :standard_id, :as => :string, :input_html => { :value => "" } %>
+          <%= f.input :standard_id, :as => :string, :input_html => { :value => "" }, :placeholder => "Looking for something?" %>
           <%= f.input :lesson_id, :as => :hidden %>
           <div class="standards-results"></div>
         </div>
       </div>
     <% end %>
-
   </div>
 </div>
 
@@ -55,7 +54,8 @@
       });
       var standardsView = new SearchView({
         collection: standards,
-        selectedEl: $('.selected-standards')
+        selectedEl: $('.selected-standards'),
+        lessonId: '<%= raw @lesson.id %>'
       });
     }();
   </script>
