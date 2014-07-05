@@ -992,9 +992,3 @@ $body-font-family: "Raleway", "Helvetica Neue", "Helvetica", Helvetica, Arial, s
 // $topbar-sticky-class: ".sticky";
 // $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
 @import 'foundation';
-
-h1, h2, h3, h4, h5 {
-  &.with-action {
-    display: inline-block;
-  }
-}

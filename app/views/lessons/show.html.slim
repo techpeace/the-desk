@@ -1,7 +1,10 @@
 .lesson
   div.row
-    div.columns.large-4
-      h2.title= @lesson.title
+    div.columns.large-5
+      = link_to edit_lesson_path @lesson do
+        | <i class="fa fa-pencil fa-fw large-icon"></i>&nbsp;&nbsp;
+      h2.title.with-action
+        #{@lesson.title}
       - if @lesson.course
         h4
           | <a href="#" class="toggle-course-edit"><i class="fa fa-cog"></i></a> Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
