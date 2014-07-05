@@ -8,6 +8,8 @@ class Lesson < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :ratings, :dependent => :destroy
 
+  after_save :clear_lesson_standards
+
   def average_rating
     begin
       ratings.sum(:score) / ratings.size
@@ -15,4 +17,11 @@ class Lesson < ActiveRecord::Base
       0
     end
   end
+
+  def clear_lesson_standards
+    if course_id_changed?
+      lesson_standards.destroy_all
+    end
+  end
+
 end
