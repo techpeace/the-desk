@@ -55,7 +55,8 @@
       var standardsView = new SearchView({
         collection: standards,
         selectedEl: $('.selected-standards'),
-        lessonId: '<%= raw @lesson.id %>'
+        lessonId: '<%= raw @lesson.id %>',
+        currentStandards: <%= raw @lesson.standards.select([:id, :text, :key]).to_json %>
       });
     }();
   </script>

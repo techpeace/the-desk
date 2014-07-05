@@ -46,6 +46,7 @@ window.SearchView = Backbone.View.extend
       el: options.selectedEl
     )
     selectedView.listenTo(selectedCollection, "add", selectedView.addStandard)
+    selectedCollection.add(options.currentStandards)
   fillIndex: (collection) ->
     @fuse = new Fuse(collection.toJSON(),
       keys: ['text']
