@@ -1,0 +1,66 @@
+.edit-course {
+  .lesson_course_id {
+    display: inline-block;
+  }
+}
+
+.standards-results {
+  height: 300px;
+  overflow: auto;
+  border: thin black solid;
+  margin-bottom: 50px;
+
+  .standard-row:nth-child(2n) {
+    background-color: #E9FFF2;
+  }
+
+  .standard-row {
+    padding: 5px;
+    border-bottom: #aaa thin solid;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-color;
+      color: white;
+    }
+
+    p {
+      margin: 0;
+      padding-bottom: 20px;
+    }
+
+  }
+
+  &.searching {
+    .standard-row {
+      display: none;
+    }
+  }
+}
+
+
+//// Lessson#show
+.button.tiny.manage-standards {
+  font-size: 12px;
+  padding: 5px;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.lesson-standard-list {
+  overflow: auto;
+  height: 130px;
+  border: thin solid #eee;
+  p:nth-child(2n) {
+    background-color: #E9FFF2;
+  }
+}
+
+
+//// Lessons#Index
+
+table.lessons {
+  th, td{
+    font-size: 1.1rem;
+  }
+}

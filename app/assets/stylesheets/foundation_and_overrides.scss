@@ -1,4 +1,4 @@
-// 
+//
 // FOUNDATION SETTINGS
 //
 
@@ -31,13 +31,14 @@
 // $include-html-grid-classes: $include-html-classes;
 
 // $row-width: rem-calc(1000);
-// $column-gutter: rem-calc(30);
+$column-gutter: 10px;
 // $total-columns: 12;
 
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,200,700);
 // We use these to control various global styles
 // $body-bg: #fff;
 // $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Raleway", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 

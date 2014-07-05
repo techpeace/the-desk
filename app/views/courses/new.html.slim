@@ -1,8 +1,39 @@
-h1 New Course
+h2 New Course
+div.row
+  div.columns.large-4
+    = simple_form_for @course do |f|
+      = f.input :title
+      = f.input :grade, collection: Course::GRADES, :input_html => {:class => "with-select2 grade-selection"}
+      br
+      = f.input :standard_course_id, label: 'Standards set ( Please choose a grade first )',:as => :hidden, label_method: 'name', :input_html => {:class => "standard-selection"}
+      br
+      br
+      br
+      = f.button :submit
 
-= simple_form_for @course do |f|
-  = f.input :title
-  = f.input :standard_course_id, label: 'Standards set', collection: @standard_courses, label_method: 'name'
-  = f.input :grade, collection: Course::GRADES
+= content_for :javascript
+  javascript:
+    !function () {
+      var select2Format = function (item) {
+        return item.name;
+      }
+      $('.grade-selection').on('change', function (e) {
+        $.ajax({
+          method: "GET",
+          url: "/courses/" + e.val + "/grade_standards",
+          dataType: "JSON",
+          success: function (data) {
+            $('.standard-selection').select2({
+              data: {
+                results: data,
+                text: 'name'
+              },
+              formatSelection: select2Format,
+              formatResult: select2Format
+            });
+          }
+        });
+      });
+    }();
 
-  = f.button :submit
+

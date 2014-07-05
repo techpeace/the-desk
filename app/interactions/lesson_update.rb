@@ -3,6 +3,7 @@ class LessonUpdate < ActiveInteraction::Base
   hash  :params do
     string :title
     string :body
+    string :course_id
   end
 
   def execute

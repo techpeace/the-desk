@@ -24,6 +24,10 @@
           i.fa.fa-plus-square.fa-fw
           | New lesson plan
       li
+        == link_to lessons_path do
+          i.fa.fa-book.fa-fw
+          | My Lessons
+      li
         == link_to calendar_lessons_path do
           i.fa.fa-calendar.fa-fw
           | Calendar

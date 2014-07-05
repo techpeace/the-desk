@@ -22,10 +22,11 @@ gem 'active_interaction', '~> 0.8.0'
 gem 'ckeditor', :git => 'https://github.com/galetahub/ckeditor.git'
 gem 'chronic'
 gem 'inherited_resources'
+gem "select2-rails"
 
 group :development do
   gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
+  gem 'binding_of_caller'
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec'

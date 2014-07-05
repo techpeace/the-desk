@@ -9,9 +9,7 @@ window.init = {
       collection: deliveriesCollection
     }
 
-    for deliver in deliveries
-      if deliver.date
-        deliveriesCollection.add(delivery)
+    deliveriesCollection.add deliveries
 
   calendar: (calendarUrl) ->
     $('#calendar').fullCalendar({

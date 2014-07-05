@@ -1,0 +1,79 @@
+<h2>
+  <%= @lesson.title || "New Lesson Plan" %>
+</h2>
+
+<%= simple_form_for @lesson do |f| %>
+  <div class="row">
+    <div class="columns large-8">
+      <h3 class="with-icon">
+        <i class="fa fa-file fa-fw"></i>
+        Lesson Plan
+      </h3>
+    </div>
+
+    <div class="columns large-4 text-right">
+      <h4 class="with-icon">
+        <i class="fa fa-road fa-fw"></i>
+        Course
+      </h4>
+      <%= f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false, input_html: { class: "with-select2" } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <%= f.input :title %>
+      <%= f.cktext_area :body %>
+    </div>
+    <div class="large-12 columns text-right">
+      <%= f.button :submit, "Create Lesson Plan", id: "lesson-form-submit" %>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="columsn large-4">
+    <h3 class="with-icon">
+      <i class="fa fa-calendar fa-fw"></i>
+      Schedule
+    </h3>
+    <%= simple_form_for [@lesson, @delivery] do |f| %>
+      <%= f.input :date, :as => :string, placeholder: "ex. next Thursday, Fri Nov 22nd, or 12/22/13" %>
+      <%= f.submit "Schedule Lesson", :class => "button small" %>
+    <% end %>
+    <ul class="delivery-dates"></ul>
+  </div>
+</div>
+
+<div id="templates">
+  <script class="delivery-link" type="text/templates">
+    <span class="date">{{ date }}</span>
+    <a href="#" class="destroy-link"><i class="fa fa-minus-circle"></i></a>
+  </script>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    !function () {
+      var url = '<%= lesson_deliveries_path @lesson %>'
+      init.deliveries(<%= raw @deliveries %>, url);
+
+      $('#new_delivery').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+          url: url,
+          method: 'POST',
+          data: {
+            delivery: {
+              date: $('#delivery_date').val()
+            }
+          },
+          success: function (data) {
+            deliveriesCollection.add(data);
+            $('#delivery_date').val('');
+          }
+        })
+      });
+    }();
+  </script>
+<% end %>

@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="standards-view">
+    <%= simple_form_for [@lesson, @lesson.lesson_standards.new] do |f| %>
+      <div class="row">
+        <div class="columns large-4">
+          <h3 class="with-icon">
+            <i class="fa fa-calendar fa-fw"></i>
+            Standards
+          </h3>
+        </div>
+
+        <div class="columns large-4 large-4-offset text-right">
+          <%= f.button :submit, "Assign", :class => "button small submit-standards", :type => "button" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="columns large-2">
+          <h5>Select Standards</h5>
+          <ul class="selected-standards">
+          </ul>
+        </div>
+        <div class="columns large-10">
+          <%= f.input :standard_id, :as => :string, :input_html => { :value => "" }, :placeholder => "Looking for something?" %>
+          <%= f.input :lesson_id, :as => :hidden %>
+          <div class="standards-results"></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="templates">
+  <script class="standard-view" type="text/templates">
+    <p>{{ text }}</p>
+  </script>
+</div>
+
+<% content_for :stylesheet do %>
+  <style>
+    <% @lesson.course.standards.each do |standard| %>
+      <%= ".standards-results.searching.r#{standard.id} .standard-row.r#{standard.id}{
+        display: block;
+      }" %>
+    <% end %>
+  </style>
+<% end %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    !function () {
+      var standards = new SearchCollection({
+        url: "<%= j course_unassigned_standards_path @lesson.course_id, :format => :json %>"
+      });
+      var standardsView = new SearchView({
+        collection: standards,
+        selectedEl: $('.selected-standards'),
+        lessonId: '<%= raw @lesson.id %>',
+        currentStandards: <%= raw @lesson.standards.select([:id, :text, :key]).to_json %>
+      });
+    }();
+  </script>
+<% end %>

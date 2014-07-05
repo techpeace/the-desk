@@ -1,10 +1,19 @@
 class LessonsController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+    @lessons = current_user.lessons
+  end
+
   def new
     @lesson = current_user.lessons.create draft: true
-    @delivery = @lesson.deliveries.build
-    @deliveries = @lesson.deliveries.to_json
+    setup_variables_for_new_edit
+  end
+
+  def edit
+    @lesson = current_user.lessons.find(params[:id])
+    setup_variables_for_new_edit
+    render :new
   end
 
   def show
@@ -20,11 +29,23 @@ class LessonsController < ApplicationController
       params: lesson_params
     )
 
-    redirect_to @lesson, success: 'Lesson successfully created.'
+    flash[:success] = 'Lesson successfully updated.'
+
+    redirect_to @lesson
   rescue ActiveInteraction::InvalidInteractionError
     # TODO: Figure out what to do with outcome.errors
-    # flash[:error] =
-    render :new
+    flash[:error] = "Unable to save lesson."
+    redirect_to lesson_path params[:id]
+  end
+
+  def destroy
+    respond_to do |format|
+      format.json do
+        if current_user.lessons.find(params[:id]).destroy!
+          render :json => { lesson_id: params[:id] }, :status => :ok
+        end
+      end
+    end
   end
 
   def calendar
@@ -34,6 +55,13 @@ class LessonsController < ApplicationController
   private
 
   def lesson_params
-    params.require(:lesson).permit(:title, :body)
+    params.require(:lesson).permit(:title, :body, :course_id)
+  end
+
+  def setup_variables_for_new_edit
+    @deliveries = @lesson.deliveries.to_json
+    @delivery = @lesson.deliveries.build
+    @standard = @lesson.lesson_standards.build
+    @standards = @lesson.try(:course).try(:standards)
   end
 end

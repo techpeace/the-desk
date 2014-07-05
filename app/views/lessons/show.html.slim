@@ -1,22 +1,55 @@
 .lesson
-  h2.title= @lesson.title
+  div.row
+    div.columns.large-5
+      = link_to edit_lesson_path @lesson do
+        | <i class="fa fa-pencil fa-fw large-icon"></i>&nbsp;&nbsp;
+      h2.title.with-action
+        #{@lesson.title}
+      - if @lesson.course
+        h4
+          | <a href="#" class="toggle-course-edit"><i class="fa fa-cog"></i></a> Course: #{link_to @lesson.course.title, course_path(@lesson.course_id)}
+        .edit-course.hide
+          = simple_form_for @lesson do |f|
+            = f.input :body, :as => :hidden
+            = f.input :title, :as => :hidden
+            = f.input :course_id, collection: current_user.courses.to_a, prompt: "Select a course.", label: false, input_html: { class: "with-select2" }
+            | &nbsp;&nbsp;&nbsp;
+            = f.button :submit, "Update Course", :class => "tiny button"
+      p <span id="star"></span>&nbsp;&nbsp;Average rating
+      p <span id="user_star"></span>&nbsp;&nbsp;Your rating
+    div.columns.large-6.right.clearfix
+      - if @lesson.course_id
+        | <a href="#" class="button tiny radius manage-standards" data-reveal-id="my-standard-modal"><i class="fa fa-cog fa-fw"></i></a>
+        h3.with-action Standards
+        div.lesson-standard-list
+          - @lesson.standards.each do |standard|
+            p
+              = link_to lesson_lesson_standard_path(@lesson, standard), :class => "delete-standard" do
+                i.fa.fa-trash-o.fa-fw
+              = standard.text
+        div#my-standard-modal.reveal-modal data={reveal: ""}
+          div.row
+            div.columns.large-12
+              = render 'shared/standards_search'
+  br
+  br
+  div.row
+    div.columns.large-12
+      .body== @lesson.body
 
-  .body== @lesson.body
-
-  p <span id="star"></span> Average rating
-
-  p <span id="user_star"></span> Your rating
-
-  - @lesson.comments.each do |comment|
-    = render partial: 'comment', locals: { comment: comment }
-
-  - if @lesson.public?
-    = simple_form_for [@lesson, @new_comment] do |f|
-      = f.input :message, label: 'Add a comment to this lesson plan'
-      / = f.input :message
-      = f.hidden_field :lesson_id, value: @lesson.id
-      = f.hidden_field :user_id,  value: current_user.id
-      = f.submit
+- if @lesson.public?
+  div.row.panel.radius
+    h3 Comments
+    div.columns.large-5
+      = simple_form_for [@lesson, @new_comment] do |f|
+        = f.input :message, label: 'Add a comment to this lesson plan'
+        / = f.input :message
+        = f.hidden_field :lesson_id, value: @lesson.id
+        = f.hidden_field :user_id,  value: current_user.id
+        = f.submit :submit, :class => "button small radius"
+    div.columns.large-6.large-offset-1
+      - @lesson.comments.each do |comment|
+        = render partial: 'comment', locals: { comment: comment }
 
 - content_for :javascript do
   javascript:
@@ -37,3 +70,19 @@
         });
       }
     });
+
+    $('.toggle-course-edit').on('click', function (e) {
+      e.preventDefault();
+      $('.edit-course').toggleClass('hide');
+    });
+
+    $('.lesson-standard-list').on('click', '.delete-standard', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: $(this).attr('href') + '.json',
+        method: "DELETE",
+        success: function (data) {
+          $(this).closest('p').remove();
+        }.bind(this)
+      });
+    })

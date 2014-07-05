@@ -1,20 +1,38 @@
 class CoursesController < InheritedResources::Base
-  before_filter :fetch_standard_courses, only: [:new]
+
+  def create
+    @course = Course.new(course_params)
+    if @course.save
+      flash[:success] = "Course created!"
+      redirect_to course_path @course
+    else
+      flash[:error] = @course.errors.messages.values.join(", ")
+      render :new
+    end
+  end
+
+  def list_of_unassigned_standards
+    respond_to do |format|
+      format.json do
+        course = Course.find params[:course_id]
+        render :json => course.unassigned_standards.select([:id, :text, :key]).to_json, :status => :ok
+      end
+    end
+  end
+
+  def grade_standards
+    respond_to do |format|
+      format.json do
+        render :json => StandardCourse.includes(:standards)
+                          .where(standards: {grade: params[:grade]})
+                          .select(:id, :name), :status => :ok
+      end
+    end
+  end
 
   private
 
-  def permitted_params
-    params.permit(:course => [:title, :standard_course_id, :grade])
-  end
-
-  def fetch_standard_courses
-    @standard_courses = StandardCourse.select(:id, :name)
-  end
-
-  protected
-
-  # Ensure courses are scoped to current user.
-  def begin_of_association_chain
-    current_user
+  def course_params
+    params.require(:course).permit(:title, :standard_course_id, :grade)
   end
 end
