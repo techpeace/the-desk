@@ -10,10 +10,6 @@
   border: thin black solid;
   margin-bottom: 50px;
 
-  .standard-row:nth-child(2n) {
-    background-color: #E9FFF2;
-  }
-
   .standard-row {
     padding: 5px;
     border-bottom: #aaa thin solid;
@@ -38,6 +34,9 @@
   }
 }
 
+.standard-row.even-standard {
+  background-color: #E9FFF2;
+}
 
 //// Lessson#show
 .button.tiny.manage-standards {

@@ -27,8 +27,8 @@ ResultView = Backbone.View.extend
   selectStandard: () ->
     json = this.model.toJSON()
     selectedCollection.add([json])
-    @model.collection.remove(this.model)
     @remove()
+    @model.collection.remove(this.model)
 
 
 window.SearchView = Backbone.View.extend
@@ -39,6 +39,7 @@ window.SearchView = Backbone.View.extend
   el: $('.standards-view')
   initialize: (options) ->
     @listenTo(@collection, 'reset', @fillIndex)
+    @listenTo(@collection, 'remove', @resetColorAlternations)
     @listenTo(selectedCollection, 'remove', @addBack)
     @collection.fetch({reset: true})
     @lessonId = options.lessonId
@@ -47,6 +48,12 @@ window.SearchView = Backbone.View.extend
     )
     selectedView.listenTo(selectedCollection, "add", selectedView.addStandard)
     selectedCollection.add(options.currentStandards)
+
+    $('body').on('opened.fndtn.reveal', (e) ->
+      $modal = $(e.target)
+      $modal.find('.standard-row.even-standard').removeClass('even-standard')
+      $modal.find('.standard-row:visible:even').addClass('even-standard')
+    )
   fillIndex: (collection) ->
     @fuse = new Fuse(collection.toJSON(),
       keys: ['text', 'keywords']
@@ -58,8 +65,9 @@ window.SearchView = Backbone.View.extend
         model: model
       )
       model.view = standardView
-      @$('.standards-results').prepend(standardView.render().el)
+      @$('.standards-results').append(standardView.render().el)
     , @)
+    @resetColorAlternations()
   fuseSearch: _.debounce((e) ->
     text = $(e.target).val()
     if text
@@ -67,9 +75,11 @@ window.SearchView = Backbone.View.extend
       @resetResults(@fuse.search(text))
     else
       @$('.standards-results').removeClass('searching')
+      @resetColorAlternations()
   , 150)
   resetResults: (ids) ->
     @$('.standards-results').removeClass().addClass('standards-results searching r' + ids.join(' r'))
+    @resetColorAlternations()
   addBack: (newModel) ->
     newModel = @collection.add(newModel.toJSON())
     standardView = new ResultView(
@@ -78,6 +88,7 @@ window.SearchView = Backbone.View.extend
     newModel.view = standardView
     index = (@collection.indexOf(newModel) || 0) - 1;
     @collection.at(index).view.$el.before(standardView.render().el)
+    @resetColorAlternations()
   submitStandards: (e) ->
     e.preventDefault()
     $.ajax(
@@ -89,5 +100,8 @@ window.SearchView = Backbone.View.extend
       success: (data) ->
         location.reload()
     )
+  resetColorAlternations: () ->
+    @$('.standard-row.even-standard').removeClass('even-standard');
+    @$('.standard-row:visible:even').addClass('even-standard');
 
 
