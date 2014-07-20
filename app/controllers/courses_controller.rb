@@ -15,7 +15,7 @@ class CoursesController < InheritedResources::Base
     respond_to do |format|
       format.json do
         course = Course.find params[:course_id]
-        render :json => course.unassigned_standards.select([:id, :text, :key]).to_json, :status => :ok
+        render :json => course.unassigned_standards.select([:id, :text, :key, :keywords]).to_json, :status => :ok
       end
     end
   end
