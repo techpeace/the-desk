@@ -3,7 +3,7 @@ class Course < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :standard_course
-  has_many :standards, :through => :standard_course
+  has_many :standards, ->(course) { where(grade: course.grade) }, :through => :standard_course
   has_many :lessons
   has_many :lesson_standards, :through => :lessons, :dependent => :destroy
   has_many :assigned_standards, :source => :standard, :through => :lesson_standards
