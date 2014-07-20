@@ -15,7 +15,21 @@ class CoursesController < InheritedResources::Base
     respond_to do |format|
       format.json do
         course = Course.find params[:course_id]
-        render :json => course.unassigned_standards.select([:id, :text, :key, :keywords]).to_json, :status => :ok
+        render :json => course.unassigned_standards
+                          .select([:id, :text, :key, :keywords])
+                          .sort { |one, two|
+                            result = one.key.to_i <=> two.key.to_i
+                            if result == 0
+                              one_letter = one.key.match /[a-zA-z]/
+                              two_letter = two.key.match /[a-zA-z]/
+
+                              one_letter.to_s <=> two_letter.to_s
+                            else
+                              result
+                            end
+                          }
+                          .to_json,
+                          :status => :ok
       end
     end
   end
