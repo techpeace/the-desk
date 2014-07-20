@@ -1,7 +1,7 @@
 class CoursesController < InheritedResources::Base
 
   def create
-    @course = Course.new(course_params)
+    @course = current_user.courses.new(course_params)
     if @course.save
       flash[:success] = "Course created!"
       redirect_to course_path @course
