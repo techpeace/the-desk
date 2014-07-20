@@ -6,7 +6,7 @@ class LessonsController < ApplicationController
   end
 
   def new
-    @lesson = current_user.lessons.create draft: true
+    @lesson = current_user.lessons.create draft: true, course_id: params[:course_id]
     setup_variables_for_new_edit
   end
 
