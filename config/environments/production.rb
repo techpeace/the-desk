@@ -82,7 +82,7 @@ TheDesk::Application.configure do
   }
   ActionMailer::Base.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = { :host => "the-desk-app.herokuapp.com" }
+  config.action_mailer.default_url_options = { :host => "the-desk.herokuapp.com" }
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
