@@ -48,6 +48,12 @@ window.SearchView = Backbone.View.extend
     )
     selectedView.listenTo(selectedCollection, "add", selectedView.addStandard)
     selectedCollection.add(options.currentStandards)
+
+    $('body').on('opened.fndtn.reveal', (e) ->
+      $modal = $(e.target)
+      $modal.find('.standard-row.even-standard').removeClass('even-standard')
+      $modal.find('.standard-row:visible:even').addClass('even-standard')
+    )
   fillIndex: (collection) ->
     @fuse = new Fuse(collection.toJSON(),
       keys: ['text', 'keywords']
